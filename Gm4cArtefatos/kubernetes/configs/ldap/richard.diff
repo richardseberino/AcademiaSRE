@@ -1,0 +1,16 @@
+dn: uid=richard,dc=gm4c,dc=com
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: richard 
+uid: richard
+uidNumber: 16859
+gidNumber: 100
+homeDirectory: /home/richard
+loginShell: /bin/bash
+gecos: adam
+userPassword: {crypt}x
+shadowLastChange: 0
+shadowMax: 0
+shadowWarning: 0

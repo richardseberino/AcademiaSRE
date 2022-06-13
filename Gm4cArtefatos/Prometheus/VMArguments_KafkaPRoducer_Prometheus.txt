@@ -1,0 +1,23 @@
+
+Executar o projeto como "Run Configuration" e incluir os parâmetros de "VM Arguments":
+
+Conta:
+-javaagent:C:/Users/AlexandreZanettideAl/.m2/repository/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar=9102:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cConta/src/main/resources/kafka-jmx-metric.yml
+
+Limite:
+-javaagent:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cLimite/lib/jmx_prometheus_javaagent-0.12.0.jar=9101:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cLimite/src/main/resources/kafka-jmx-metric.yml
+
+Senha:
+-javaagent:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cSenha/lib/jmx_prometheus_javaagent-0.12.0.jar=9103:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cSenha/src/main/resources/kafka-jmx-metric.yml
+
+Tef:
+-javaagent:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cTEF/lib/jmx_prometheus_javaagent-0.12.0.jar=9100:C:/Users/AlexandreZanettideAl/git/gm4c/Gm4cTEF/src/main/resources/kafka-jmx-metric.yml
+
+Para verificar a geração do Kafka_Producer no Prometheus acesse a URL:
+
+http://localhost:7071/metrics
+
+# HELP kafka_producer_iotime_total The total time the I/O thread spent doing I/O (kafka.producer<type=producer-metrics, client-id=producer-1><>iotime-total)
+# TYPE kafka_producer_iotime_total untyped
+kafka_producer_iotime_total 4198399.0
+

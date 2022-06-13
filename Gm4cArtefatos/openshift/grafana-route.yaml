@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: grafana
+  namespace: tef
+  labels:
+    app: grafana
+spec:
+  to:
+    kind: Service
+    name: grafana-svc
+    weight: 100
+  port:
+    targetPort: porta1
+  wildcardPolicy: None

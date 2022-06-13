@@ -1,0 +1,6 @@
+echo "Iniciando o Springboot com arquivo: " $JAR_FILE 
+if [ -d /tmp/configmap ]; then
+   cd /tmp/configmap
+fi
+exec java -Djava.security.egd=file:/dev/./urandom -jar $JAR_FILE
+

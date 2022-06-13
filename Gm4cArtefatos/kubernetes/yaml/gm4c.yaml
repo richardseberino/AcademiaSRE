@@ -1,0 +1,429 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-tef"
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-tef"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-tef"      
+    spec:
+      containers:
+        - name: "gm4c-tef"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cTEF-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9000
+              name: "porta1"
+              protocol: TCP
+          volumeMounts:
+          - name: app-yml
+            mountPath: /tmp/configmap/application.yml  
+            subPath: application.yml        
+          - name: shared-logs
+            mountPath: /tmp/logs/
+        - name: logstash
+          image: maanadev/logstash:6.5.3-custom
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/share/logstash/mylogs/
+          - name: logstash-yml
+            mountPath: /usr/share/logstash/config/logstash.yml
+            subPath: logstash.yml
+          - name: logstash-conf
+            mountPath: /usr/share/logstash/pipeline/logstash.conf
+            subPath: logstash.conf
+          env:
+          - name: NODE_ID
+            value: "gm4c-tef"
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+               fieldPath: status.podIP
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
+        - name: logstash-yml
+          configMap:
+            name: logstash-yml
+        - name: logstash-conf
+          configMap:
+            name: logstash-conf
+        - name: app-yml
+          configMap:
+            name: tef-application
+  replicas: 1 
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-senha"
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-senha"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-senha"      
+    spec:
+      containers:
+        - name: "gm4c-senha"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cSenha-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9003
+              name: "porta1"
+              protocol: TCP
+          volumeMounts:
+          - name: app-yml
+            mountPath: /tmp/configmap/application.yml  
+            subPath: application.yml        
+          - name: shared-logs
+            mountPath: /tmp/logs/
+        - name: logstash
+          image: maanadev/logstash:6.5.3-custom
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/share/logstash/mylogs/
+          - name: logstash-yml
+            mountPath: /usr/share/logstash/config/logstash.yml
+            subPath: logstash.yml
+          - name: logstash-conf
+            mountPath: /usr/share/logstash/pipeline/logstash.conf
+            subPath: logstash.conf
+          env:
+          - name: NODE_ID
+            value: "gm4c-senha"
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+               fieldPath: status.podIP
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
+        - name: logstash-yml
+          configMap:
+            name: logstash-yml
+        - name: logstash-conf
+          configMap:
+            name: logstash-conf
+        - name: app-yml
+          configMap:
+            name: senha-application
+  replicas: 1 
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-limite"
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-limite"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-limite"      
+    spec:
+      containers:
+        - name: "gm4c-limite"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cLimite-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9001
+              name: "porta1"
+              protocol: TCP
+          volumeMounts:
+          - name: app-yml
+            mountPath: /tmp/configmap/application.yml  
+            subPath: application.yml        
+          - name: shared-logs
+            mountPath: /tmp/logs/
+        - name: logstash
+          image: maanadev/logstash:6.5.3-custom
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/share/logstash/mylogs/
+          - name: logstash-yml
+            mountPath: /usr/share/logstash/config/logstash.yml
+            subPath: logstash.yml
+          - name: logstash-conf
+            mountPath: /usr/share/logstash/pipeline/logstash.conf
+            subPath: logstash.conf
+          env:
+          - name: NODE_ID
+            value: "gm4c-limite"
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+               fieldPath: status.podIP
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
+        - name: logstash-yml
+          configMap:
+            name: logstash-yml
+        - name: logstash-conf
+          configMap:
+            name: logstash-conf
+        - name: app-yml
+          configMap:
+            name: limite-application
+  replicas: 1 
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-conta"
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-conta"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-conta"      
+    spec:
+      containers:
+        - name: "gm4c-conta"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cConta-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9002
+              name: "porta1"
+              protocol: TCP
+          volumeMounts:
+          - name: app-yml
+            mountPath: /tmp/configmap/application.yml  
+            subPath: application.yml        
+          - name: shared-logs
+            mountPath: /tmp/logs/
+        - name: logstash
+          image: maanadev/logstash:6.5.3-custom
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/share/logstash/mylogs/
+          - name: logstash-yml
+            mountPath: /usr/share/logstash/config/logstash.yml
+            subPath: logstash.yml
+          - name: logstash-conf
+            mountPath: /usr/share/logstash/pipeline/logstash.conf
+            subPath: logstash.conf
+          env:
+          - name: NODE_ID
+            value: "gm4c-conta"
+          - name: NODE_IP
+            valueFrom:
+              fieldRef:
+               fieldPath: status.podIP
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
+        - name: logstash-yml
+          configMap:
+            name: logstash-yml
+        - name: logstash-conf
+          configMap:
+            name: logstash-conf
+        - name: app-yml
+          configMap:
+            name: conta-application
+  replicas: 1 
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-springadmin"
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-springadmin"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-springadmin"      
+    spec:
+      containers:
+        - name: "gm4c-springadmin"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cSpringAdmin-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9004
+              name: "porta1"
+              protocol: TCP
+  replicas: 1 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tef-svc
+  labels:
+    name: tef-svc
+spec:
+  ports:
+  - port: 9000
+    name: porta1
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    name: gm4c-tef
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-admin-svc
+  labels:
+    name: spring-admin-svc
+spec:
+  ports:
+  - port: 9004
+    name: porta1
+    protocol: TCP
+    targetPort: 9004
+  selector:
+    name: gm4c-springadmin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: limite-svc
+  labels:
+    name: limite-svc
+spec:
+  ports:
+  - port: 9001
+    name: porta1
+    protocol: TCP
+    targetPort: 9001
+  selector:
+    name: gm4c-limite    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: senha-svc
+  labels:
+    name: senha-svc
+spec:
+  ports:
+  - port: 9003
+    name: porta1
+    protocol: TCP
+    targetPort: 9003
+  selector:
+    name: gm4c-senha
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conta-svc
+  labels:
+    name: conta-svc
+spec:
+  ports:
+  - port: 9002
+    name: porta1
+    protocol: TCP
+    targetPort: 9002
+  selector:
+    name: gm4c-conta
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tef-ext-svc
+  labels:
+    name: tef-ext-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9000
+    name: porta1
+    protocol: TCP
+    targetPort: 9000
+    nodePort: 31009
+  selector:
+    name: gm4c-tef
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: limite-ext-svc
+  labels:
+    name: limite-ext-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9001
+    name: porta1
+    protocol: TCP
+    targetPort: 9001
+    nodePort: 31001
+  selector:
+    name: gm4c-limite    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: senha-ext-svc
+  labels:
+    name: senha-ext-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9003
+    name: porta1
+    protocol: TCP
+    targetPort: 9003
+    nodePort: 31003
+  selector:
+    name: gm4c-senha
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conta-ext-svc
+  labels:
+    name: conta-ext-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9002
+    name: porta1
+    protocol: TCP
+    targetPort: 9002
+    nodePort: 31002
+  selector:
+    name: gm4c-conta
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springadmin-ext-svc
+  labels:
+    name: springadmin-svc
+spec:
+  type: NodePort
+  ports:
+  - port: 9004
+    name: porta1
+    protocol: TCP
+    targetPort: 9004
+    nodePort: 31004
+  selector:
+    name: gm4c-springadmin
+---

@@ -1,0 +1,33 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "cassandra"
+spec:
+  selector:
+    matchLabels: 
+      name: "cassandra"
+  template: 
+    metadata:
+      labels:
+        name: "cassandra"
+    spec:
+      containers:
+        - name: "cassandra"
+          image: "cassandra:latest"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 7000 
+              name: "porta1"
+            - containerPort: 9042
+              name: "dbport"
+          volumeMounts: 
+          - mountPath: /tmp/scripts 
+            name: scripts
+      volumes:
+      - name: scripts
+        hostPath:
+          path: /root/gm4c/Gm4cArtefatos/kubernetes/scripts
+          type: Directory              
+
+  replicas: 1 

@@ -1,0 +1,77 @@
+<configuration>
+	<property scope="context" name="Hostname" value="${HOSTNAME}" />
+	<property name="appname" value="TEF" />
+	<property name="environment" value="dev" />
+	<property name="rawid" value="raw_ibm_gm4c" />
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-4r [%thread] %-5level C:%X{client} N:%X{number} -%msg%n
+			</pattern>
+		</layout>
+	</appender>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+   	    <encoder>
+      	<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n %M %method</pattern>
+    	</encoder>
+  	</appender>
+	
+	<appender name="STASH" class="ch.qos.logback.core.ConsoleAppender">
+<!--         <file>${LOG_PATH}/console.log</file> -->
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<jsonFactoryDecorator
+				class="net.logstash.logback.decorate.CharacterEscapesJsonFactoryDecorator">
+				<includeStandardAsciiEscapesForJSON>true
+				</includeStandardAsciiEscapesForJSON>
+			</jsonFactoryDecorator>
+	<!--  		<includeCallerData>true</includeCallerData>  -->
+			<customFields>{"Appname":"${appname}", "Environment": "${environment}"}</customFields>
+			<fieldNames>
+				<timestamp>Timestamp</timestamp>
+				<message>Message</message>
+				<level>Severidade</level>
+				<version>[ignore]</version>
+				<levelValue>[ignore]</levelValue>
+				<thread>[ignore]</thread>
+				<logger>Class</logger>
+
+			</fieldNames>
+			<throwableConverter
+				class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+				<maxDepthPerThrowable>30</maxDepthPerThrowable>
+				<maxLength>2048</maxLength>
+				<shortenedClassNameLength>20</shortenedClassNameLength>
+				<exclude>sun\.reflect\..*\.invoke.*</exclude>
+				<exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+				<rootCauseFirst>true</rootCauseFirst>
+				<inlineHash>true</inlineHash>
+			</throwableConverter>
+		</encoder>
+	</appender>
+	
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="STASH" />
+	</appender>
+	
+	<root level="ERROR">
+		<appender-ref ref="STASH" />
+	</root>
+
+ 	<logger name="com.gm4c.tef" level="INFO" additivity="false">
+		<appender-ref ref="STASH" />
+	</logger>  
+	
+	
+	<logger name="org.springframwework" level="OFF">
+		<appender-ref ref="STASH" />
+	</logger>
+		
+	<logger name="org.apache" level="OFF">
+		<appender-ref ref="STASH" />
+	</logger>
+			
+	<logger name="io.confluent" level="OFF">
+		<appender-ref ref="STASH" />
+	</logger>
+
+</configuration>

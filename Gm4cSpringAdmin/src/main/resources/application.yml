@@ -1,0 +1,21 @@
+server:
+  port: 9004
+spring:
+#https://codecentric.github.io/spring-boot-admin/current/
+  boot: 
+    admin:
+      monitor:
+        status-interval: 60000
+      client:
+        instance:
+          name: Gm4cSpringAdmin
+management:
+  endpoint:
+    health: 
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  

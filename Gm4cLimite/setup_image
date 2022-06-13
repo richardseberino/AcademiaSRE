@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo " --> Copiando a aplicacao para o diretorio correto"
+
+cd /tmp/src/Gm4cSenha
+cd ../Gm4cTrace
+mvn clean install -DskipTests
+cd ../Gm4cLog4J2
+mvn clean install -DskipTests
+cd ../Gm4cLogging
+mvn clean install -DskipTests
+cd ../Gm4cCommons
+mvn clean install -DskipTests
+cd ../Gm4cHealthCheck
+mvn clean install -DskipTests
+
+cd ../Gm4cLimite
+mvn generate-sources
+cd ../Gm4cTEF
+mvn generate-sources
+
+
+cd ../Gm4cLimite
+mvn clean install -DskipTests
+
+

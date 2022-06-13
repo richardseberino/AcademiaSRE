@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Preparando o ambiente "
+
+if [ -d /tmp/artifacts/.m2 ]; then 
+    echo "Restaurando pacotes baixados no build anterior"
+    rm -Rf /home/spring/.m2
+    mv /tmp/artifacts/.m2 /home/spring
+fi 
+
+echo "Executando o script de compilacao da aplicacao"
+sh $SETUP_FILE

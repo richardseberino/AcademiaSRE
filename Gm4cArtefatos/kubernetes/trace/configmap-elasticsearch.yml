@@ -1,0 +1,63 @@
+#
+# Copyright 2017-2018 The Jaeger Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License
+# is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied. See the License for the specific language governing permissions and limitations under
+# the License.
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-configuration
+  labels:
+    app: jaeger
+    jaeger-infra: configuration
+data:
+  span-storage-type: elasticsearch
+  collector: |
+    collector:
+      zipkin:
+        http-port: 9411
+    es:
+      server-urls: http://elasticsearch:9200
+  query: |
+    es:
+      server-urls: http://elasticsearch:9200
+    query:
+      static-files: /go/jaeger-ui/
+  proxy: |
+    {
+        "target-url": "http://localhost:16686",
+        "bind-address": "0.0.0.0",
+        "http-port": "8080",
+        "applications": [
+            {
+                "base-path": "/",
+                "adapter-config": {
+                  "realm": "jaeger",
+                  "auth-server-url": "http://192.168.0.28:8080/auth/",
+                  "ssl-required": "external",
+                  "resource": "proxy-jaeger",
+                  "credentials": {
+                    "secret": "a82887e5-3692-4d47-8ba5-21b12d20a037"
+                  }
+                }
+          ,
+          "constraints": [
+                    {
+                        "pattern": "/*",
+                        "roles-allowed": [
+                            "user"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }

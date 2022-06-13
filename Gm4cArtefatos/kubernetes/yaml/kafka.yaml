@@ -1,0 +1,111 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "kafka"
+spec:
+  selector:
+    matchLabels:
+      name: "kafka"
+  template:
+    metadata:
+      labels:
+        name: "kafka"
+    spec:
+      containers:
+        - name: "kafka"
+          env:
+            - name: "ADV_HOST"
+              value: "kafka-svc"
+          image: "seberino/kafka:jmx"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 2181
+              name: "zookeeper"
+            - containerPort: 3030
+              name: "webui"
+            - containerPort: 8081
+              name: "p1"
+            - containerPort: 8082
+              name: "p2"
+            - containerPort: 8083
+              name: "p3"
+            - containerPort: 9581
+              name: "p4"
+            - containerPort: 9582
+              name: "p5"
+            - containerPort: 9583
+              name: "p6"
+            - containerPort: 9584
+              name: "p7"
+            - containerPort: 9585
+              name: "p8"
+            - containerPort: 7071
+              name: "jmx"
+            - containerPort: 9092
+              name: "kafka-client"
+          volumeMounts:
+          - mountPath: /tmp/scripts
+            name: scripts
+      volumes:
+      - name: scripts
+        hostPath:
+          path: /root/gm4c/Gm4cArtefatos/kubernetes/scripts
+          type: Directory
+  replicas: 1
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "kafka-lag-exporter"
+spec:
+  selector:
+    matchLabels:
+      name: "kafka-lag-exporter"
+  template:
+    metadata:
+      labels:
+        name: "kafka-lag-exporter"
+    spec:
+      containers:
+        - name: "kafka-lag-exporter"
+          image: "lightbend/kafka-lag-exporter:0.6.2"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 8000
+              name: "prometheus"
+          volumeMounts:
+          - name: kafka-export-conf
+            mountPath: /opt/docker/conf/application.conf
+            subPath: application.conf
+          command: ["/opt/docker/bin/kafka-lag-exporter", "-Dconfig.file=/opt/docker/conf/application.conf"]
+      volumes:
+        - name: kafka-export-conf
+          configMap:
+            name: kafka-export-conf
+  replicas: 1
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "kafka-exporter"
+spec:
+  selector:
+    matchLabels:
+      name: "kafka-exporter"
+  template:
+    metadata:
+      labels:
+        name: "kafka-exporter"
+    spec:
+      containers:
+        - name: "kafka-exporter"
+          image: "danielqsj/kafka-exporter"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 9308
+              name: "prometheus"
+          command: ["kafka_exporter", "--kafka.server=kafka-svc:9092"]
+  replicas: 1

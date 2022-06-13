@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Properties>
+        <Property name="pattern">%d{dd/MM/yyyy HH:mm:ss,SSS EEEE} %p [%-20c{1}] %m%n</Property>
+        <Property name="filePath">${sys:user.home}</Property>
+        <Property name="Hostname">"${hostName}"</Property>
+		<Property name="appname">"TEF"</Property>
+		<Property name="environment">"dev"</Property>
+		<Property name="rawid">"raw_ibm_gm4c"</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="${filePath}/logs/meuLog.log"
+                     filePattern="${filePath}/logs/meuLog-%d{dd-MM-yyyy-HH:mm:ss}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+       <Console name="Console">
+            <PatternLayout pattern="${pattern}"/>
+        </Console> 
+        <Console name="ConsoleJSONAppender" target="SYSTEM_OUT">
+			<PatternLayout>
+    			<pattern>{"Timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}","Message":"%m", "Class":"%C", "Severidade":"%p", "HOSTNAME":${Hostname}, "CorrelationId":"%X{CorrelationId}", "TransactionId":"%X{TransactionId}", "Payload":%X{Payload}, "Appname":${appname},"Environment":${environment}}%n</pattern>
+			</PatternLayout>
+    	</Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="ConsoleJSONAppender"/>
+        </Root>
+	    <Logger name="CONSOLE_JSON_APPENDER" level="INFO" additivity="false">
+    		<AppenderRef ref="ConsoleJSONAppender" />
+		</Logger>
+    </Loggers>
+</Configuration>

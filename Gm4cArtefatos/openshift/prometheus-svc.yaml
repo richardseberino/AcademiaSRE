@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+  namespace: tef
+  labels:
+    app: prometheus
+spec:
+  ports:
+  - port: 9090
+    name: porta1
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    name: prometheus

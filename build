@@ -1,0 +1,47 @@
+#!/bin/sh
+
+cd /root/gm4c
+echo "Baixando alterações do Git"
+
+git pull
+echo " --> Compilando dependencias"
+
+cd /root/gm4c/Gm4cSenha
+cd ../Gm4cTrace
+mvn clean install -DskipTests
+cd ../Gm4cLog4J2
+mvn clean install -DskipTests
+cd ../Gm4cLogging
+mvn clean install -DskipTests
+cd ../Gm4cCommons
+mvn clean install -DskipTests
+cd ../Gm4cHealthCheck
+mvn clean install -DskipTests
+
+echo “ —-> Gerando Avro”
+cd ../Gm4cSenha
+mvn generate-sources
+cd ../Gm4cLimite
+mvn generate-sources
+cd ../Gm4cConta
+mvn generate-sources
+cd ../Gm4cTEF
+mvn generate-sources
+
+
+echo “—> Compilando aplicacao”
+cd ../Gm4cSenha
+mvn clean install -DskipTests
+cd ../Gm4cLimite
+mvn clean install -DskipTests
+cd ../Gm4cConta
+mvn clean install -DskipTests
+cd ../Gm4cTEF
+mvn clean install -DskipTests
+cd ../Gm4cSpringAdmin
+mvn clean install -DskipTests
+cd ..
+
+docker build -t seberino/gm4c:latest . 
+docker push seberino/gm4c:latest
+kubectl get pods | grep gm4c | awk '{ print "kubectl delete pod " $1 } '| bash

@@ -1,0 +1,30 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "prometheus"
+spec:
+  selector:
+    matchLabels: 
+      name: "prometheus"
+  template: 
+    metadata:
+      labels:
+        name: "prometheus"
+    spec:
+      containers:
+        - name: "prometheus"
+          image: "prom/prometheus:latest"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 9090 
+              name: "porta1"
+          volumeMounts: 
+          - name: prometheus-setup
+            mountPath: /etc/prometheus/prometheus.yml
+            subPath: prometheus.yml
+      volumes:
+      - name: prometheus-setup
+        configMap:
+          name: prometheus-yml
+  replicas: 1 

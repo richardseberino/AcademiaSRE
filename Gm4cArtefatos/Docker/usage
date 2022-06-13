@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cat <<EOF
+Esta eh uma imagem de Builder para Springboot construida
+para ser um exemplo de implementacao para as praticas tecnicas 
+do metodo Garagem IBM
+EOF
+

@@ -1,0 +1,50 @@
+# A scrape configuration scraping a Node Exporter and the Prometheus server
+# itself.
+scrape_configs:
+  # Scrape do proprio prometheys
+  - job_name: 'prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['prometheus-svc:9090']
+  # Scrape das aplicações
+  - job_name: 'limite'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['limite-svc:9001']
+  - job_name: 'conta'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['conta-svc:9002']
+  - job_name: 'senha'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['senha-svc:9003']
+  - job_name: 'tef'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['tef-svc:9000']
+#  - job_name: 'limite-producer'
+#    scrape_interval: 15s
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['limite-svc:9101']
+#  - job_name: 'conta-producer'
+#    scrape_interval: 15s
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['conta-svc:9102']
+#  - job_name: 'senha-producer'
+#    scrape_interval: 15s
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['senha-svc:9103']
+#  - job_name: 'tef-producer'
+#    scrape_interval: 15s
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['tef-svc:9100']
+      

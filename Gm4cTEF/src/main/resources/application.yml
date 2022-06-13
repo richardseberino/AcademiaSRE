@@ -1,0 +1,170 @@
+server:
+  port: 9000
+spring:
+  redis:
+    host: redis-svc
+    port: 6379
+  boot:
+    admin:
+      client:
+        url: http://spring-admin-svc:9004
+        instance:
+          name: Gm4cTef
+          prefer-ip: true
+#           http://localhost:9004/applications      
+  h2: 
+    console:
+      enabled: true
+      path: /h2-console
+#           http://localhost:9000/h2-console/      
+      settings.trace: false
+      settings.web-allow-others: false      
+  kafka:
+    properties:
+      request.timeout.ms: 20000
+      retry.backoff.ms: 500
+      schema.registry.url: http://kafka-svc:8081  
+      specific: 
+        avro: 
+          reader: true
+    consumer:
+      auto-offset-reset: earliest
+      bootstrap-servers: kafka-svc:9092
+      group-id: tef-groupid
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        schema:
+          registry:
+            url: http://kafka-svc:8081
+    producer:
+      bootstrap-servers: kafka-svc:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema:
+          registry:
+            url: http://kafka-svc:8081
+  data:
+    cassandra:
+      contact-points: cassandra-svc
+      username: cassandra
+      password: cassandra
+      keyspace-name: itau
+      port: 9042
+      schema-action: CREATE_IF_NOT_EXISTS
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: h2
+    password: h2
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+management:
+  gm4c: 
+     name: Gm4cTef
+  health: 
+    package: com.gm4c.healthcheck
+    kafka:
+      enabled: false
+      bootstrap-servers: kafka-svc:9092,kafka-svc:9091,kafka-svc:9093
+      read-timepout:  200
+      threshold:  600
+      topic:  log-brokers
+    cassandra:
+      enabled: false
+      level: 2
+      threshold:  600
+      query:  'SELECT release_version from system.local'
+      url: http://cassandra-svc:9042
+    h2:
+      enabled: false
+      threshold: 600
+      query: "SELECT VALUE FROM INFORMATION_SCHEMA.SETTINGS  WHERE NAME='info.VERSION'"
+    redis:
+      enabled: false
+      threshold: 600
+      query: "TBD"
+    limite:
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://limite-svc:9001
+      topic-req: tef
+    conta:
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://conta-svc:9002
+      topic-req: tef
+    senha:
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://senha-svc:9003
+      topic-req: tef
+    dependencies:
+    - name: limite
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://limite-svc:9001
+      topicreq: tef
+    - name: conta
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://conta-svc:9002
+      topicreq: tef
+    - name: senha
+      enabled: true
+      level: 2
+      threshold:  600
+      url: http://senha-svc:9003
+      topicreq: tef
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+#management.endpoint.info.enabled=true          
+#management.endpoint.health.enabled=true          
+#management.endpoint.health.show-details=always          
+#management.endpoint.health.group.custom.include=db
+    health: 
+#     Enable Health Check Endpoint
+      enabled: true
+#Configure to show Health Check Details
+      show-details: always
+      group:
+        healthcustom:
+#          include: diskSpace,ping
+          include: '*'
+        tefhealthcustom:
+#          include: diskSpace,ping
+          include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true 
+  endpoints:
+#Disable all endpoints
+#management.endpoints.enabled-by-default=false
+    enabled-by-default: true
+#Expose Web Endpoints
+#management.endpoints.web.exposure.include="*"
+    web:
+      exposure:
+        include: '*'
+  trace:
+    enabled: true
+opentracing:
+  jaeger:
+    udp-sender:
+      host: jaeger-svc
+      port: 6831
+    const-sampler:
+      decision: true
+    log-spans: false
+    service-name: TEF-Service

@@ -1,0 +1,28 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: "cassandra"
+  namespace: "tef"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cassandra
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      containers:
+        - name: "cassandra"
+          image: "cassandra:latest"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 7000 
+              name: "porta1"
+            - containerPort: 9042
+              name: "dbport"
+      serviceAccountName: tef
+      serviceAccount: tef          
+  replicas: 1 

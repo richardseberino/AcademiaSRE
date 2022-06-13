@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-ext-svc
+  labels:
+    app: prometheus
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    name: porta1
+    protocol: TCP
+    targetPort: 9090
+    nodePort: 31090
+  selector:
+    name: prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+  labels:
+    app: prometheus
+spec:
+  ports:
+  - port: 9090
+    name: porta1
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    name: prometheus

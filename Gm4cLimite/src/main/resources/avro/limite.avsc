@@ -1,0 +1,15 @@
+{
+     "type": "record",
+     "namespace": "com.gm4c.limite",
+     "name": "Limite",
+     "version": "1",
+     "fields": [
+       { "name": "id_simulacao", "type": "string", "doc": "id da simulacao" },
+       { "name": "agencia", "type": "int", "doc": "Codigo da agencia de origem" },
+       { "name": "conta", "type": "int", "doc": "Codigo da conta de origem" },
+       { "name": "dv", "type": "int", "doc": "Dac da conta de origem" },
+       { "name": "valor", "type": "float", "doc": "Valor da Transferencia" },
+       { "name": "aprovado", "type": "boolean", "doc": "Retorna verdadeiro se houver limite ainda no dia" },
+       { "name": "evento", "type": "string", "doc": "Retorna o tipo de evento" }
+     ]
+}

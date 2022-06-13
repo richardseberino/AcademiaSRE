@@ -1,0 +1,49 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "jenkins"
+spec:
+  selector:
+    matchLabels: 
+      name: "jenkins"
+  template: 
+    metadata:
+      labels:
+        name: "jenkins"      
+    spec:
+      containers:
+        - name: "jenkins"
+          env:
+            - name: "COLLECTOR_ZIPKIN_PORT"
+              value: "9411"
+          image: "jenkins/jenkins:latest"
+          ports:
+            - containerPort: 8080 
+              name: "porta1"
+              protocol: TCP
+          volumeMounts:
+          - name: jenkins-data
+            mountPath: /var/jenkins_home
+      volumes:
+      - name: jenkins-data
+        hostPath:
+          path: /root/volumes/jenkins-data
+          type: Directory
+  replicas: 1 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-ext-svc
+  labels:
+    app: jenkins
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    name: porta1
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 31080
+  selector:
+    name: jenkins

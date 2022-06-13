@@ -1,0 +1,25 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "grafana"
+  namespace: tef
+spec:
+  selector:
+    matchLabels: 
+      name: "grafana"
+  template: 
+    metadata:
+      labels:
+        name: "grafana"
+    spec:
+      containers:
+        - name: "grafana"
+          image: "grafana/grafana:latest"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 3000 
+              name: "porta1"
+      serviceAccountName: tef
+      serviceAccount: tef          
+  replicas: 1 

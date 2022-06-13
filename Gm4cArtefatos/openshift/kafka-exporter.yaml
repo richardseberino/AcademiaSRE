@@ -1,0 +1,93 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "kafka-lag-exporter"
+  namespace: tef
+spec:
+  selector:
+    matchLabels:
+      name: "kafka-lag-exporter"
+  template:
+    metadata:
+      labels:
+        name: "kafka-lag-exporter"
+    spec:
+      containers:
+        - name: "kafka-lag-exporter"
+          image: "lightbend/kafka-lag-exporter:0.6.2"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 8000
+              name: "prometheus"
+          volumeMounts:
+          - name: kafka-export-conf
+            mountPath: /opt/docker/conf/application.conf
+            subPath: application.conf
+          command: ["/opt/docker/bin/kafka-lag-exporter", "-Dconfig.file=/opt/docker/conf/application.conf"]
+      volumes:
+        - name: kafka-export-conf
+          configMap:
+            name: kafka-export-conf
+      serviceAccountName: tef
+      serviceAccount: tef          
+  replicas: 1
+---
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "kafka-exporter"
+  namespace: tef
+spec:
+  selector:
+    matchLabels:
+      name: "kafka-exporter"
+  template:
+    metadata:
+      labels:
+        name: "kafka-exporter"
+    spec:
+      containers:
+        - name: "kafka-exporter"
+          image: "danielqsj/kafka-exporter"
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 9308
+              name: "prometheus"
+          command: ["kafka_exporter", "--kafka.server=kafka-svc:9092"]
+      serviceAccountName: tef
+      serviceAccount: tef          
+  replicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-exporter-svc
+  namespace: tef
+  labels:
+    name: kafka-exporter
+spec:
+  ports:
+  - port: 9308
+    name: porta1
+    protocol: TCP
+    targetPort: 9308
+  selector:
+    name: kafka-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-lag-exporter-svc
+  namespace: tef
+  labels:
+    name: kafka-lag-exporter
+spec:
+  ports:
+  - port: 8000
+    name: porta1
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    name: kafka-lag-exporter

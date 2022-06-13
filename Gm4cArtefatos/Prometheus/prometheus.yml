@@ -1,0 +1,40 @@
+# A scrape configuration scraping a Node Exporter and the Prometheus server
+# itself.
+scrape_configs:
+  # Scrape do proprio prometheys
+  - job_name: 'prometheus'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['prometheus-svc:9090']
+  # Scrape das aplicações
+  - job_name: 'limite'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['limite-svc:8080']
+  - job_name: 'conta'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['conta-svc:8080']
+  - job_name: 'senha'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['senha-svc:8080']
+  - job_name: 'tef'
+    scrape_interval: 15s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['tef-svc:8080']
+  - job_name: 'kafka-exporter'
+    scrape_interval: 15s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['kafka-exporter-svc:9308']
+  - job_name: 'kafka-lag-exporter'
+    scrape_interval: 15s
+    metrics_path: '/'
+    static_configs:
+      - targets: ['kafka-lag-exporter-svc:8000']
+

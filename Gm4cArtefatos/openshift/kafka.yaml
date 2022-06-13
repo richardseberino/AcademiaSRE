@@ -1,0 +1,44 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: kafka
+  namespace: tef
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+        - name: kafka
+          env:
+            - name: ADV_HOST
+              value: kafka-svc.tef.svc.cluster.local
+          securityContext:
+            privileged: true
+          ports:
+            - name: web
+              containerPort: 3000
+              protocol: TCP
+            - name: k1
+              containerPort: 9091
+              protocol: TCP
+            - name: k2
+              containerPort: 9092
+              protocol: TCP
+            - name: k3
+              containerPort: 9093
+              protocol: TCP
+            - name: zookeeper
+              containerPort: 2181
+              protocol: TCP
+          imagePullPolicy: Always
+          terminationMessagePolicy: File
+          image: 'landoop/fast-data-dev:latest'
+      serviceAccountName: tef
+      serviceAccount: tef          
+  serviceName: kafka-svc

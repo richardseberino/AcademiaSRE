@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prometheus
+  namespace: tef
+  labels:
+    app: prometheus
+spec:
+  to:
+    kind: Service
+    name: prometheus-svc
+    weight: 100
+  port:
+    targetPort: porta1
+  wildcardPolicy: None

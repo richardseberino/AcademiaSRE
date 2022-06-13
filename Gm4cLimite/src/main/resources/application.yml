@@ -1,0 +1,86 @@
+server:
+  port: 9001
+spring:
+  boot:
+    admin:
+      client:
+        url: http://spring-admin-svc:9004
+        instance:
+          name: Gm4cLimite
+          prefer-ip: true
+  kafka:
+    bootstrap-servers:
+      - kafka-svc:9092  
+    properties:
+      acks: 1
+      request.timeout.ms: 20000
+      retry.backoff.ms: 500
+      schema.registry.url: http://kafka-svc:8081  
+      specific: 
+        avro: 
+          reader: true
+    consumer:
+      auto-offset-reset: earliest
+      bootstrap-servers: kafka-svc:9092
+      group-id: simulacao3
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      enable-auto-commit: true
+      properties:
+        acks: 1
+        schema:
+          registry:
+            url: http://kafka-svc:8081
+    producer:
+      bootstrap-servers: kafka-svc:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        schema:
+          registry:
+            url: http://kafka-svc:8081
+  data:
+    cassandra:
+      contact-points: cassandra-svc
+      keyspace-name: itau
+      username: cassandra
+      password: cassandra
+      port: 9042
+      schema-action: CREATE_IF_NOT_EXISTS
+logging:
+  level:
+    root: info     
+
+management:
+  gm4c: 
+     name: Gm4cLimite    
+  health: 
+    package: com.gm4c.healthcheck
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health: 
+        show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true 
+  endpoints:
+      web:
+        exposure:
+          include:
+          - "*"
+  trace:
+    enabled: true
+opentracing:
+  jaeger:
+    udp-sender:
+      host: jaeger-svc
+      port: 6831
+    const-sampler:
+      decision: true
+    log-spans: false
+    service-name: Limite-Service
+          

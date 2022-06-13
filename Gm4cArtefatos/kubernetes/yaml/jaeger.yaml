@@ -1,0 +1,38 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "jaeger"
+spec:
+  selector:
+    matchLabels: 
+      name: "jaeger"
+  template: 
+    metadata:
+      labels:
+        name: "jaeger"      
+    spec:
+      containers:
+        - name: "jaeger"
+          env:
+            - name: "COLLECTOR_ZIPKIN_PORT"
+              value: "9411"
+          image: "jaegertracing/all-in-one:1.17.1"
+          ports:
+            - containerPort: 5775 
+              name: "porta1"
+              protocol: UDP
+            - containerPort: 6831
+              name: "coletor"
+              protocol: UDP
+            - containerPort: 6832
+              name: "coletorp2"
+              protocol: UDP
+            - containerPort: 5778 
+              name: "p2"
+            - containerPort: 16686
+              name: "webui"
+            - containerPort: 14268
+              name: "p4"
+            - containerPort: 9411
+              name: "zipkin"
+  replicas: 1 
