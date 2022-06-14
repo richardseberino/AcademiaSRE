@@ -44,7 +44,7 @@ spring:
       contact-points: cassandra-svc
       username: cassandra
       password: cassandra
-      keyspace-name: itau
+      keyspace-name: tef
       port: 9042
       schema-action: CREATE_IF_NOT_EXISTS
 logging:
