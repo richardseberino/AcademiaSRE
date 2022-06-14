@@ -92,10 +92,10 @@ Configure o Index do Kibana para aplicações, para isso vamos acessar a interfa
 oc get route -n openshift-logging | grep kibana
 ```
 Use a URL recuperada no passo anterior e cole ela no seu navegador, na primeira tela (depois de logado) você vai precisar configurar o index principal das aplicações
-![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/images/kibana01.png)
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/kibana01.png)
 informe o texto "app*" e clique em "next step"
 
-![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/images/kibana02.png)
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/kibana02.png)
 Selecione o campo "@timestamp" como fonte de dados para a data/horário dos logs e clique em "Create index pattern"
 
 ### 2.7 Deploy Nexus
