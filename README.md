@@ -136,11 +136,16 @@ mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cCommons -Dversion=0.0
 cd ..
 cd Gm4cArtefatos
 mvn deploy:deploy-file -DgroupId=io.confluent -DartifactId=kafka-avro-serializer -Dversion=4.0.0 -Dpackaging=jar -Dfile=kafka-avro-serializer-4.0.0.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
-
-
-oc create configmap conta-application -n tef --from-file=Gm4cConta/src/main/resources/application.yml
-oc create configmap senha-application -n tef --from-file=Gm4cSenha/src/main/resources/application.yml
-oc create configmap tef-application -n tef --from-file=Gm4cTEF/src/main/resources/application.yml
-oc create configmap limite-application -n tef --from-file=Gm4cLimite/src/main/resources/application.yml
 ```
+
+### 3.2 Deploy Conta
+Abre a perspectiva de "Developer" na console do OpenShift e clique em "Add" como mostra na imagem abaixo e clique em "Import from Git"
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/oc-dev01.png)
+
+Informe o caminho para o repositório git "https://github.com/richardseberino/AcademiaSRE.git", informe o contexto para a aplicação Conta "/Gm4cConta" e escolha o tipo de deploy "Builder Image" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/conta01.png)
+
+Selecione / informe o nome da aplicação como "tef-app", o nome do nosso componente como "conta", garanta que a imagem de build selecionada é "java" e o jdk "Red Hat Open JDK 17 (UBI 8) e clique em "Create" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/conta02.png)
+
 
