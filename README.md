@@ -189,3 +189,22 @@ Execute o comando abaixo para recuperar a rota da interface gráfica do SpringBo
 oc get route -n tef | grep springboot
 ```
 
+## 4.0 Configura monitoração
+
+### 4.1 Grafana
+
+#### 4.1.1 Conectando o Prometheus ao Grafana
+
+Primeiro, recupere a URL do Grafana usando o comando abaixo:
+```
+oc get route -n tef | grep grafana
+```
+Use essa URL com o protocolo HTTP para acessar a interface do Grafana, como na iagem abaixo, use o login default "admin" e senha "admin", no primeiro login ocê será convidado a trocar a senha.
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana01.png)
+
+Após autenticado, você verá uma tela como a da imagem abaixo, clique no ícone de "configurações" no menu lateral esquerdo e escolha a opção "Data Sources":
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana02.png)
+
+Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "prometheus-svc:9090"
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana03.png)
+
