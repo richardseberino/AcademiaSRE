@@ -20,7 +20,6 @@ import com.gm4c.logging.ports.IContextLogger;
 import com.gm4c.logging.types.MdcType;
 import com.gm4c.logging.types.MessageText;
 import com.gm4c.tef.Transferencia;
-import com.gm4c.utils.SpanDatastore;
 import com.google.gson.Gson;
 
 import io.micrometer.core.instrument.Counter;
@@ -47,8 +46,6 @@ public class Gm4cLimiteService {
 	@Autowired
 	private Tracer tracer;
 	
-	@Autowired
-	private SpanDatastore spanDatastore;
 	
 	@Autowired
 	MeterRegistry registry;

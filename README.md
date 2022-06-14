@@ -86,7 +86,7 @@ Crie uma instancia de ElasticSearch + Kibana
 Nota: Se você não estiver usando a IBM Cloud, você vai precisar ajustar o nome do Storage Class no arquivo Gm4cArtefatos/openshift/es-kibana.yaml (linha 20)
 ```
 oc create -f Gm4cArtefatos/openshift/es-kibana.yaml
-```
+```a
 Configure o Index do Kibana para aplicações, para isso vamos acessar a interface do Kibana, execute o comando abaixo para descobrir a URL do Kibana:
 ```
 oc get route -n openshift-logging | grep kibana
@@ -125,10 +125,17 @@ mvn package
 mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cTrace -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cTrace-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
 cd ..
 cd Gm4cHealthCheck
+mvn install
+mvn package
 mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cHealthCheck -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cHealthCheck-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
 cd ..
 cd Gm4cCommons
+mvn install
+mvn package
 mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cCommons -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cCommons-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+cd ..
+cd Gm4cArtefatos
+mvn deploy:deploy-file -DgroupId=io.confluent -DartifactId=kafka-avro-serializer -Dversion=4.0.0 -Dpackaging=jar -Dfile=kafka-avro-serializer-4.0.0.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
 
 
 oc create configmap conta-application -n tef --from-file=Gm4cConta/src/main/resources/application.yml
