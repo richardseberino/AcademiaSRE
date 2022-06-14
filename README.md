@@ -149,3 +149,24 @@ Selecione / informe o nome da aplicação como "tef-app", o nome do nosso compon
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/conta02.png)
 
 
+### 3.3 Deploy Limite
+Abre a perspectiva de "Developer" na console do OpenShift e clique em "Add" como mostra na imagem abaixo e clique em "Import from Git"
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/oc-dev01.png)
+
+Informe o caminho para o repositório git "https://github.com/richardseberino/AcademiaSRE.git", informe o contexto para a aplicação Limite "/Gm4cLimite" e escolha o tipo de deploy "Builder Image" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/limite01.png)
+
+Selecione / informe o nome da aplicação como "tef-app", o nome do nosso componente como "limite", garanta que a imagem de build selecionada é "java" e o jdk "Red Hat Open JDK 17 (UBI 8) e clique em "Create" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/limite02.png)
+
+### 3.4 Deploy Senha
+Abre a perspectiva de "Developer" na console do OpenShift e clique em "Add" como mostra na imagem abaixo e clique em "Import from Git"
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/oc-dev01.png)
+
+Informe o caminho para o repositório git "https://github.com/richardseberino/AcademiaSRE.git", informe o contexto para a aplicação Senha "/Gm4cSenha" e escolha o tipo de deploy "Builder Image" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/senha01.png)
+
+Selecione / informe o nome da aplicação como "tef-app", o nome do nosso componente como "senha", garanta que a imagem de build selecionada é "java" e o jdk "Red Hat Open JDK 17 (UBI 8) e clique em "Create" como na imagem abaixo:
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/senha02.png)
+
+

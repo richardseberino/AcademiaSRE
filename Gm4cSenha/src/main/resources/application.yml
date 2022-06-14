@@ -1,5 +1,5 @@
 server:
-  port: 9003
+  port: 8080
 spring:
   boot:
     admin:
@@ -42,7 +42,7 @@ spring:
   data:
     cassandra:
       contact-points: cassandra-svc
-      keyspace-name: itau
+      keyspace-name: tef
       username: cassandra
       password: cassandra
       port: 9042
@@ -82,5 +82,5 @@ opentracing:
     const-sampler:
       decision: true
     log-spans: false
-    service-name: Senha-Service
+    service-name: Senha
           

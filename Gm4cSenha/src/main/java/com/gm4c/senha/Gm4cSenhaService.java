@@ -40,9 +40,7 @@ public class Gm4cSenhaService {
 	
 	@Autowired
 	private Tracer tracer;
-	
-	@Autowired
-	private SpanDatastore spanDatastore;
+
 	
 	@Autowired
 	Counter contadorAppMessageSubscribeSimulacao;
