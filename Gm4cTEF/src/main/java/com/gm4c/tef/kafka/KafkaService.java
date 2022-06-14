@@ -44,6 +44,7 @@ public class KafkaService {
 					.setHeader("transactionId", idTransacao)
 					.setHeader("syntheticTransaction", syntheticTransaction)
 					.build();
+			LOG.debug("0001-A","MenssageBuilder Concluido, iniciando envio para o Kafka");
 			kafkaTemplate.send(mensagem);
 	        LOG.debug(MessagesEnum.GM4C_TEF0003D.getCodAndDescription(), mensagem);
 			if (spanPai!=null)

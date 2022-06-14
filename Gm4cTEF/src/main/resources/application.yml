@@ -11,7 +11,6 @@ spring:
         instance:
           name: Gm4cTef
           prefer-ip: true
-#           http://localhost:9004/applications      
   kafka:
     properties:
       request.timeout.ms: 20000
@@ -46,14 +45,6 @@ spring:
       keyspace-name: tef
       port: 9042
       schema-action: CREATE_IF_NOT_EXISTS
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: h2
-    password: h2
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-
 management:
   gm4c: 
      name: Gm4cTef
@@ -118,27 +109,19 @@ management:
     prometheus:
       enabled: true
     health: 
-#     Enable Health Check Endpoint
       enabled: true
-#Configure to show Health Check Details
       show-details: always
       group:
         healthcustom:
-#          include: diskSpace,ping
           include: '*'
         tefhealthcustom:
-#          include: diskSpace,ping
           include: '*'
   metrics:
     export:
       prometheus:
         enabled: true 
   endpoints:
-#Disable all endpoints
-#management.endpoints.enabled-by-default=false
     enabled-by-default: true
-#Expose Web Endpoints
-#management.endpoints.web.exposure.include="*"
     web:
       exposure:
         include: '*'

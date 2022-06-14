@@ -104,6 +104,10 @@ oc create -f Gm4cArtefatos/openshift/nexus.yaml -n tef
 oc new-app nexus3-persistent
 ```
 
+### 2.8 Deploy Redis
+```
+oc create -f Gm4cArtefatos/openshift/redis.yaml -n tef
+```
 
 ## 3.0 Instalar as aplicações
 ### 3.1 Preparação (Compilação das Dependencias)
@@ -216,3 +220,6 @@ Ainda autenticado no Grafana, vá ao menu lateral esquerdo no sinal de "+" e esc
 
 Clique no botão "Upload JSON File" e escolha o arquivo grafana_dashboard_20200506.json que esta na pasta "Gm4cArtefatos/Grafana" deste repositório. Clique no botão "Import" para concluir a importação. 
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana05.png)
+
+## 5.0 Testando a aplicação
+
