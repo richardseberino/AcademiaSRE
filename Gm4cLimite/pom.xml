@@ -27,7 +27,7 @@
 		<repository>
 			<id>nexus</id>
       		<url>http://nexus-tef.cpwatson-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-public/</url>
-		</repositories>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
