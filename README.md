@@ -126,6 +126,9 @@ mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cTrace -Dversion=0.0.1
 cd ..
 cd Gm4cHealthCheck
 mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cHealthCheck -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cHealthCheck-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+cd ..
+cd Gm4cCommons
+mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cCommons -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cCommons-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
 
 
 oc create configmap conta-application -n tef --from-file=Gm4cConta/src/main/resources/application.yml
