@@ -86,7 +86,7 @@ Crie uma instancia de ElasticSearch + Kibana
 Nota: Se você não estiver usando a IBM Cloud, você vai precisar ajustar o nome do Storage Class no arquivo Gm4cArtefatos/openshift/es-kibana.yaml (linha 20)
 ```
 oc create -f Gm4cArtefatos/openshift/es-kibana.yaml
-```a
+```
 Configure o Index do Kibana para aplicações, para isso vamos acessar a interface do Kibana, execute o comando abaixo para descobrir a URL do Kibana:
 ```
 oc get route -n openshift-logging | grep kibana
