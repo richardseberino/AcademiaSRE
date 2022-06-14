@@ -179,4 +179,13 @@ Informe o caminho para o repositório git "https://github.com/richardseberino/Ac
 Selecione / informe o nome da aplicação como "tef-app", o nome do nosso componente como "tef", garanta que a imagem de build selecionada é "java" e o jdk "Red Hat Open JDK 17 (UBI 8) e clique em "Create" como na imagem abaixo:
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/tef02.png)
 
+### 3.6 Deploy SpringBoot Admin 
+Execute o comando abaixo para instalar o SpringBoot Admin para monitorar a saúde dos componentes
+```
+oc create -f Gm4cArtefatos/openshift/springboot-admin.yaml
+```
+Execute o comando abaixo para recuperar a rota da interface gráfica do SpringBoot Admin
+```
+oc get route -n tef | grep springboot
+```
 

@@ -1,0 +1,57 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "gm4c-springadmin"
+  namespace: tef
+spec:
+  selector:
+    matchLabels: 
+      name: "gm4c-springadmin"
+  template: 
+    metadata:
+      labels:
+        name: "gm4c-springadmin"      
+    spec:
+      containers:
+        - name: "gm4c-springadmin"
+          env:
+            - name: "JAR_FILE"
+              value: "/tmp/Gm4cSpringAdmin-0.0.1-SNAPSHOT.jar"
+          image: "seberino/gm4c:latest"
+          ports:
+            - containerPort: 9004
+              name: "porta1"
+              protocol: TCP
+  replicas: 1 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-admin-svc
+  namespace: tef
+  labels:
+    name: spring-admin-svc
+spec:
+  ports:
+  - port: 9004
+    name: porta1
+    protocol: TCP
+    targetPort: 9004
+  selector:
+    name: gm4c-springadmin
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: springboot-admin
+  namespace: tef
+  labels:
+    name: gm4c-springadmin
+spec:
+  to:
+    kind: Service
+    name: spring-admin-svc
+    weight: 100
+  port:
+    targetPort: porta1
+  wildcardPolicy: None
