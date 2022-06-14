@@ -205,6 +205,14 @@ Use essa URL com o protocolo HTTP para acessar a interface do Grafana, como na i
 Após autenticado, você verá uma tela como a da imagem abaixo, clique no ícone de "configurações" no menu lateral esquerdo e escolha a opção "Data Sources":
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana02.png)
 
-Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "prometheus-svc:9090"
+Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "http://prometheus-svc:9090". Clique em "Save & Test"
+Uma mensagem de sucesso em verde deve aparecer ao final da tela
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana03.png)
 
+#### 4.1.2 Importando Dashboard
+
+Ainda autenticado no Grafana, vá ao menu lateral esquerdo no sinal de "+" e escolha a opção "Import" como na imagem abaixo: 
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana04.png)
+
+Clique no botão "Upload JSON File" e escolha o arquivo grafana_dashboard_20200506.json que esta na pasta "Gm4cArtefatos/Grafana" deste repositório. Clique no botão "Import" para concluir a importação. 
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana05.png)
