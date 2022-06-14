@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8080
 spring:
   redis:
     host: redis-svc
@@ -12,13 +12,6 @@ spring:
           name: Gm4cTef
           prefer-ip: true
 #           http://localhost:9004/applications      
-  h2: 
-    console:
-      enabled: true
-      path: /h2-console
-#           http://localhost:9000/h2-console/      
-      settings.trace: false
-      settings.web-allow-others: false      
   kafka:
     properties:
       request.timeout.ms: 20000
@@ -50,7 +43,7 @@ spring:
       contact-points: cassandra-svc
       username: cassandra
       password: cassandra
-      keyspace-name: itau
+      keyspace-name: tef
       port: 9042
       schema-action: CREATE_IF_NOT_EXISTS
   datasource:
@@ -78,10 +71,6 @@ management:
       threshold:  600
       query:  'SELECT release_version from system.local'
       url: http://cassandra-svc:9042
-    h2:
-      enabled: false
-      threshold: 600
-      query: "SELECT VALUE FROM INFORMATION_SCHEMA.SETTINGS  WHERE NAME='info.VERSION'"
     redis:
       enabled: false
       threshold: 600
@@ -90,48 +79,44 @@ management:
       enabled: true
       level: 2
       threshold:  600
-      url: http://limite-svc:9001
+      url: http://limite:8080
       topic-req: tef
     conta:
       enabled: true
       level: 2
       threshold:  600
-      url: http://conta-svc:9002
+      url: http://conta:8080
       topic-req: tef
     senha:
       enabled: true
       level: 2
       threshold:  600
-      url: http://senha-svc:9003
+      url: http://senha:8080
       topic-req: tef
     dependencies:
     - name: limite
       enabled: true
       level: 2
       threshold:  600
-      url: http://limite-svc:9001
+      url: http://limite:8080
       topicreq: tef
     - name: conta
       enabled: true
       level: 2
       threshold:  600
-      url: http://conta-svc:9002
+      url: http://conta:8080
       topicreq: tef
     - name: senha
       enabled: true
       level: 2
       threshold:  600
-      url: http://senha-svc:9003
+      url: http://senha:8080
       topicreq: tef
   endpoint:
     metrics:
       enabled: true
     prometheus:
       enabled: true
-#management.endpoint.info.enabled=true          
-#management.endpoint.health.enabled=true          
-#management.endpoint.health.show-details=always          
-#management.endpoint.health.group.custom.include=db
     health: 
 #     Enable Health Check Endpoint
       enabled: true
@@ -167,4 +152,4 @@ opentracing:
     const-sampler:
       decision: true
     log-spans: false
-    service-name: TEF-Service
+    service-name: TEF
