@@ -11,22 +11,22 @@ scrape_configs:
     scrape_interval: 15s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['limite-svc:8080']
+      - targets: ['limite:8080']
   - job_name: 'conta'
     scrape_interval: 15s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['conta-svc:8080']
+      - targets: ['conta:8080']
   - job_name: 'senha'
     scrape_interval: 15s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['senha-svc:8080']
+      - targets: ['senha:8080']
   - job_name: 'tef'
     scrape_interval: 15s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['tef-svc:8080']
+      - targets: ['tef:8080']
   - job_name: 'kafka-exporter'
     scrape_interval: 15s
     metrics_path: '/metrics'
