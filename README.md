@@ -106,8 +106,28 @@ oc new-app nexus3-persistent
 
 
 ## 3.0 Instalar as aplicações
-### 3.1 Preparação
+### 3.1 Preparação (Compilação das Dependencias)
 ```
+export MVN_URL=http://nexus-tef.cpwatson-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/
+cd Gm4Logging
+mvn install
+mvn package
+mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cLogging -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cLogging-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+cd ..
+cd Gm4cLog4J2
+mvn install
+mvn package
+mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cLog4J2 -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cLog4J2-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+cd ..
+cd Gm4cTrace
+mvn install
+mvn package
+mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cTrace -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cTrace-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+cd ..
+cd Gm4cHealthCheck
+mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cHealthCheck -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cHealthCheck-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
+
+
 oc create configmap conta-application -n tef --from-file=Gm4cConta/src/main/resources/application.yml
 oc create configmap senha-application -n tef --from-file=Gm4cSenha/src/main/resources/application.yml
 oc create configmap tef-application -n tef --from-file=Gm4cTEF/src/main/resources/application.yml
