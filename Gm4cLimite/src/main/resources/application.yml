@@ -1,12 +1,12 @@
 server:
-  port: 9001
+  port: 8080
 spring:
   boot:
     admin:
       client:
         url: http://spring-admin-svc:9004
         instance:
-          name: Gm4cLimite
+          name: Limite
           prefer-ip: true
   kafka:
     bootstrap-servers:
@@ -15,7 +15,7 @@ spring:
       acks: 1
       request.timeout.ms: 20000
       retry.backoff.ms: 500
-      schema.registry.url: http://kafka-svc:8081  
+      schema.registry.url: http://kafka-svc:8081
       specific: 
         avro: 
           reader: true
@@ -42,7 +42,7 @@ spring:
   data:
     cassandra:
       contact-points: cassandra-svc
-      keyspace-name: itau
+      keyspace-name: tef
       username: cassandra
       password: cassandra
       port: 9042
@@ -82,5 +82,5 @@ opentracing:
     const-sampler:
       decision: true
     log-spans: false
-    service-name: Limite-Service
+    service-name: Limite
           
