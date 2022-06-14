@@ -26,6 +26,10 @@
 			<id>confluent</id>
 			<url>http://packages.confluent.io/maven/</url>
 		</repository>
+		<repository>
+			<id>nexus</id>
+      		<url>http://nexus:8081/repository/maven-public/</url>
+		</repository>			
 	</repositories>
 	<dependencies>
 		<dependency>
