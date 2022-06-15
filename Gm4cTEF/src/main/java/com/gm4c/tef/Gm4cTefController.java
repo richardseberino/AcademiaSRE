@@ -15,6 +15,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.MessageHeaders;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.gm4c.conta.ContaCorrente;
 import com.gm4c.limite.Limite;
@@ -494,6 +496,10 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		LOG.info(resultado, MessagesEnum.GM4C_TEF0013I.getCodAndDescription());
 		LOG.debug("Fim da simulação");
 		LOG.clearContext();
+		if (sim.getRc_simulacao().startsWith("[-8]")) //senha invalida
+		{
+			return new ResponseEntity<>(resultado, HttpStatus.UNAUTHORIZED);
+		}
 		return ResponseEntity.ok(resultado);
 	
 
