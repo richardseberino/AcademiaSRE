@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  jmx:
+    enabled: true 
   boot:
     admin:
       client:

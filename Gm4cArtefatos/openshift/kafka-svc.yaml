@@ -19,5 +19,9 @@ spec:
     name: porta3
     protocol: TCP
     targetPort: 2181
+  - port: 8081
+    name: register
+    protocol: TCP
+    targetPort: 8081
   selector:
     app: kafka

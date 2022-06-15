@@ -36,6 +36,9 @@ spec:
             - name: zookeeper
               containerPort: 2181
               protocol: TCP
+            - name: register
+              containerPort: 8081
+              protocol: TCP
           imagePullPolicy: Always
           terminationMessagePolicy: File
           image: 'landoop/fast-data-dev:latest'
