@@ -24,6 +24,9 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
+import java.time.Duration;
+import java.time.OffsetDateTime;
+import io.micrometer.core.instrument.DistributionSummary;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 
@@ -82,7 +85,12 @@ public class Gm4cContaService {
 			//LOG.warn(MessageText.SYNTHETIC_TRANSACTION);
 			return;
 		}
-		Timer.Sample sample = Timer.start(registry);
+		OffsetDateTime dataHoraInicial = OffsetDateTime.now();
+		DistributionSummary summary = DistributionSummary.builder("app.request.duration")
+				.baseUnit("milliseconds")
+				.tags("app","conta","operacao","validaConta")
+				.register( registry );
+
 		
 		Object t1 = record.value();
 		Transferencia transferencia = new Gson().fromJson(t1.toString(), Transferencia.class);	
@@ -248,8 +256,9 @@ public class Gm4cContaService {
 		LOG.info(conta, MessageText.EVENT_PRODUCED);
 		span.log("mensagem e enviada ao topico conta do kafka!");
 		Metrics.counter("app.message.publish", "app", "conta", "fluxo", transferencia.getEvento(), "topico", "conta").increment();
-		sample.stop(registry.timer("app.operation.duration", "app", "conta", "fluxo", transferencia.getEvento(), "aprovadoOrigem", String.valueOf(aprovadoOrigem), "aprovadoDestino", String.valueOf(aprovadoDestino)));
-		//TODO Logar Metrica
+		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
+		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
+		summary.record( diferencaTempo );
 		span.finish();
 		LOG.debug("Fim da Validação do Conta");
 		LOG.clearContext();
