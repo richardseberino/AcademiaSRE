@@ -175,7 +175,7 @@ public class Gm4cSenhaService {
 		{
 			resultado = "ERRO";
 		}
-		Metrics.counter("app.message.publish", "app", "senha", "fluxo", transferencia.getEvento(), "topico","senha", "ressultado",resultado ).increment();
+		Metrics.counter("app.message.publish", "app", "senha", "fluxo", transferencia.getEvento(), "topico","senha", "resultado",resultado ).increment();
 		LOG.debug("Fim do método validaSenha");
 		LOG.clearContext();
 		
