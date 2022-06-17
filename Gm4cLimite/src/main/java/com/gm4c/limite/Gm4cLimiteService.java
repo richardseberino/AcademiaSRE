@@ -183,7 +183,7 @@ public class Gm4cLimiteService {
 		{
 			resultado = "ERRO";
 		}
-		Metrics.counter("app.message.publish", "app", "limite", "fluxo", transferencia.getEvento(), "topico","limite","ressultado",resultado).increment();
+		Metrics.counter("app.message.publish", "app", "limite", "fluxo", transferencia.getEvento(), "topico","limite","resultado",resultado).increment();
 		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
 		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
 		summary.record( diferencaTempo );
