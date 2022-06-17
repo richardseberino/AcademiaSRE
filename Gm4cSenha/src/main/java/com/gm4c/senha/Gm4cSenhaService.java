@@ -20,7 +20,13 @@ import com.gm4c.tef.Transferencia;
 import com.gm4c.utils.SpanDatastore;
 import com.google.gson.Gson;
 
+import java.time.Duration;
+import java.time.OffsetDateTime;
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.DistributionSummary;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Metrics;
+
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 
@@ -41,6 +47,8 @@ public class Gm4cSenhaService {
 	@Autowired
 	private Tracer tracer;
 
+	@Autowired
+	MeterRegistry registry;
 	
 	@Autowired
 	Counter contadorAppMessageSubscribeSimulacao;
@@ -63,7 +71,8 @@ public class Gm4cSenhaService {
 	public void validaSenha(ConsumerRecord<String, Transferencia> record, @Headers MessageHeaders headers)
 	{
 
-		
+
+
 		headers.keySet().forEach(key -> {
             Object value = headers.get(key);
             if (key.equalsIgnoreCase("correlationId")){
@@ -80,6 +89,8 @@ public class Gm4cSenhaService {
 			//LOG.warn(MessageText.SYNTHETIC_TRANSACTION);
 			return;
 		}
+
+
 		Object t1 = record.value();
 		Transferencia transferencia = new Gson().fromJson(t1.toString(), Transferencia.class);
 		
@@ -101,6 +112,12 @@ public class Gm4cSenhaService {
 			span.finish();
 			return;
 		}
+		OffsetDateTime dataHoraInicial = OffsetDateTime.now();
+		DistributionSummary summary = DistributionSummary.builder("app.request.duration")
+				.baseUnit("milliseconds")
+				.tags("app","senha","operacao","validaSenha")
+				.register( registry );
+
 		boolean aprovado = false;
 		
 		SenhaDto senha=null;
@@ -150,6 +167,10 @@ public class Gm4cSenhaService {
 		span.setTag("mensagem.retorno", senhaResp.toString());
 		LOG.info(senhaResp, MessageText.EVENT_PRODUCED);
 		span.finish();
+		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
+		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
+		summary.record( diferencaTempo );
+		Metrics.counter("app.message.publish", "app", "senha", "fluxo", transferencia.getEvento(), "topico","senha").increment();
 		LOG.debug("Fim do método validaSenha");
 		LOG.clearContext();
 		

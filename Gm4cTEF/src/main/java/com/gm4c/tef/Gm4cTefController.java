@@ -500,6 +500,14 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		{
 			return new ResponseEntity<>(resultado, HttpStatus.UNAUTHORIZED);
 		}
+		else if (sim.getRc_simulacao().contains("[-12]") ) //saldo insuficiente
+		{
+			return new ResponseEntity<>(resultado, HttpStatus.FORBIDDEN);
+		}
+		else if (sim.getRc_simulacao().startsWith("[-7]") ) //limite insuficiente
+		{
+			return new ResponseEntity<>(resultado, HttpStatus.NOT_ACCEPTABLE);
+		}
 		else if (sim.getRc_simulacao().startsWith("[-5]") || sim.getRc_simulacao().startsWith("[-6]")) //conta origem ou destino nao encontrada
 		{
 			return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
