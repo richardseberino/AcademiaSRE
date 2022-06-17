@@ -173,6 +173,11 @@ public class Gm4cLimiteService {
 		kafka.sendMessage(limite, span, "limite", tracer, kafkaLimite, "EnviaRespostaLimite", correlationId, transactionId, syntheticTransaction);
 		span.log("Mensagem enviada ao Kafka");
 		LOG.info(limite, MessageText.EVENT_PRODUCED);
+
+		
+		span.finish();
+		LOG.debug("Fim do método validaLimite");
+		LOG.clearContext();
 		String resultado = "SUCESSO";
 		if (!aprovado)
 		{
@@ -182,11 +187,6 @@ public class Gm4cLimiteService {
 		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
 		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
 		summary.record( diferencaTempo );
-		
-		span.finish();
-		LOG.debug("Fim do método validaLimite");
-		LOG.clearContext();
-		
 	}
 		
 }
