@@ -208,7 +208,6 @@ Após autenticado, você verá uma tela como a da imagem abaixo, clique no ícon
 Recupere o Token de acesso ao Prometheus (atraves do Thanos)
 ```
 oc sa get-token -n tef tef
-```
 
 Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "https://thanos-querier.openshift-monitoring.svc:9091". 
 Desligue a verificação de SSL (Skip TLS verify). Adicione um Header HTTP com o ID "Authorization" e valor "Bearer "  + o token que recuperamos na etapa anterior. 
@@ -218,7 +217,7 @@ Uma mensagem de sucesso em verde deve aparecer ao final da tela
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana03.png)
 
 #### 4.1.2 Importando Dashboard
-
+ 
 Ainda autenticado no Grafana, vá ao menu lateral esquerdo no sinal de "+" e escolha a opção "Import" como na imagem abaixo: 
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana04.png)
 
