@@ -260,7 +260,7 @@ public class Gm4cContaService {
 		{
 			resultado = "ERRO";
 		}
-		Metrics.counter("app.message.publish", "app", "conta", "fluxo", transferencia.getEvento(), "topico", "conta","ressultado",resultado).increment();
+		Metrics.counter("app.message.publish", "app", "conta", "fluxo", transferencia.getEvento(), "topico", "conta","resultado",resultado).increment();
 		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
 		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
 		summary.record( diferencaTempo );

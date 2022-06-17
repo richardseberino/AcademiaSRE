@@ -36,8 +36,10 @@ public class MetricsConfig {
 	
 	@Bean
 	public void contadorAppMessagePublish() {
-		registry.counter("app.message.publish", "app", "senha", "fluxo", "simulacao", "topico", "senha");
-		registry.counter("app.message.publish", "app", "senha", "fluxo", "efetivacao", "topico", "senha");
+		registry.counter("app.message.publish", "app", "senha", "fluxo", "simulacao", "topico", "senha", "resultado", "SUCESSO");
+		registry.counter("app.message.publish", "app", "senha", "fluxo", "efetivacao", "topico", "senha", "resultado", "SUCESSO");
+		registry.counter("app.message.publish", "app", "senha", "fluxo", "simulacao", "topico", "senha", "resultado", "ERRO");
+		registry.counter("app.message.publish", "app", "senha", "fluxo", "efetivacao", "topico", "senha", "resultado", "ERRO");
 		LOG.debug(MessagesEnum.GM4C_SEN0001D.getCodAndDescription(), "app.message.publish - simulacao");
 		LOG.debug(MessagesEnum.GM4C_SEN0001D.getCodAndDescription(), "app.message.publish - evetivacao");
 	}
