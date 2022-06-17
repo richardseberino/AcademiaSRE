@@ -63,15 +63,11 @@ oc create -f Gm4cArtefatos/openshift/jaeger-svc.yaml
 
 ### 2.5 Deploy do Prometheus + Grafana
 ```
-oc create configmap prometheus-yml -n tef --from-file=Gm4cArtefatos/Prometheus/prometheus.yml
-oc create configmap prometheus-yml -n tef --from-file=Gm4cArtefatos/Prometheus/prometheus.yml
-oc create -f Gm4cArtefatos/openshift/prometheus.yaml -n tef
-oc create -f Gm4cArtefatos/openshift/prometheus-svc.yaml -n tef
-oc create -f Gm4cArtefatos/openshift/prometheus-route.yaml -n tef
+oc create -f Gm4cArtefatos/openshift/prom.yaml -n tef
 oc create -f Gm4cArtefatos/openshift/grafana.yaml -n tef
 oc create -f Gm4cArtefatos/openshift/grafana-svc.yaml -n tef
 oc create -f Gm4cArtefatos/openshift/grafana-route.yaml -n tef
-
+oc adm policy add-cluster-role-to-user cluster-monitoring-view -z tef -n tef
 ```
 
 ### 2.6 Deploy do Elastic Search + Kibana
@@ -209,7 +205,15 @@ Use essa URL com o protocolo HTTP para acessar a interface do Grafana, como na i
 Após autenticado, você verá uma tela como a da imagem abaixo, clique no ícone de "configurações" no menu lateral esquerdo e escolha a opção "Data Sources":
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana02.png)
 
-Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "http://prometheus-svc:9090". Clique em "Save & Test"
+Recupere o Token de acesso ao Prometheus (atraves do Thanos)
+```
+oc sa get-token -n tef tef
+```
+
+Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "https://thanos-querier.openshift-monitoring.svc:9091". 
+Desligue a verificação de SSL (Skip TLS verify). Adicione um Header HTTP com o ID "Authorization" e valor "Bearer "  + o token que recuperamos na etapa anterior. 
+
+Clique em "Save & Test"
 Uma mensagem de sucesso em verde deve aparecer ao final da tela
 ![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/grafana03.png)
 

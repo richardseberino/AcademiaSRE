@@ -170,7 +170,12 @@ public class Gm4cSenhaService {
 		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
 		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
 		summary.record( diferencaTempo );
-		Metrics.counter("app.message.publish", "app", "senha", "fluxo", transferencia.getEvento(), "topico","senha").increment();
+		String resultado = "SUCESSO";
+		if (!aprovado)
+		{
+			resultado = "ERRO";
+		}
+		Metrics.counter("app.message.publish", "app", "senha", "fluxo", transferencia.getEvento(), "topico","senha", "ressultado",resultado ).increment();
 		LOG.debug("Fim do método validaSenha");
 		LOG.clearContext();
 		

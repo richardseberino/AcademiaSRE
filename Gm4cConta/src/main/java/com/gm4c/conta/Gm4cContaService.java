@@ -255,7 +255,12 @@ public class Gm4cContaService {
 		kafka.sendMessage(conta, span, "conta", tracer, kafkaConta, "EnviaRespostaConta", correlationId, transactionId, syntheticTransaction);
 		LOG.info(conta, MessageText.EVENT_PRODUCED);
 		span.log("mensagem e enviada ao topico conta do kafka!");
-		Metrics.counter("app.message.publish", "app", "conta", "fluxo", transferencia.getEvento(), "topico", "conta").increment();
+		String resultado = "SUCESSO";
+		if (!aprovadoDestino || !aprovadoOrigem)
+		{
+			resultado = "ERRO";
+		}
+		Metrics.counter("app.message.publish", "app", "conta", "fluxo", transferencia.getEvento(), "topico", "conta","ressultado",resultado).increment();
 		OffsetDateTime dataHoraFinal = OffsetDateTime.now();
 		long diferencaTempo = Duration.between(dataHoraInicial, dataHoraFinal).toMillis();
 		summary.record( diferencaTempo );
