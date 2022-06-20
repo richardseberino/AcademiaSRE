@@ -436,7 +436,11 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 				throw new Exception("[-4] Falha ao atualizar a simulacao");
 			}
 			sim = list.get();
-			
+			if (!sim.getRc_senha().startsWith("[0]"))
+			{
+				LOG.info(MessagesEnum.GM4C_TEF0002I.getCodAndDescription());
+				throw new Exception("[-8] senha invalida. "  + sim.getRc_senha());
+			}
 			if (!sim.getRc_debito().startsWith("[0]"))
 			{
 				LOG.error(MessagesEnum.GM4C_TEF0005E.getCodAndDescription());
@@ -451,11 +455,6 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			{
 				LOG.info(MessagesEnum.GM4C_TEF0012I.getCodAndDescription());
 				throw new Exception("[-7] limite recusado. "  + sim.getRc_limite());
-			}
-			if (!sim.getRc_senha().startsWith("[0]"))
-			{
-				LOG.info(MessagesEnum.GM4C_TEF0002I.getCodAndDescription());
-				throw new Exception("[-8] senha invalida. "  + sim.getRc_senha());
 			}
 			sim.setRc_simulacao("[0] Simulacao concluida");
 			LOG.info("", MessagesEnum.GM4C_TEF0023I.getCodAndDescription(),sim.getRc_simulacao());
