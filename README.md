@@ -2,7 +2,7 @@
 ## 1.0 Introdução
 A idea deste repositorio é compartilhar uma aplicação baseada em microserviços e Saga Patern com conceitos de SRE (Observabilidade, intrumentação de código, etc)
 A aplicação em questão é uma réplica simplificada da TEF, como menos componentes, porém do ponto de arquitetura muito similar, usando Cassandra, Kafka, Redis, e aplicações escritas em SpringBoot/Java.
-![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/architecture.png)
+![alt text](https://github.com/richardseberino/AcademiaSRE/blob/main/Gm4cArtefatos/images/architecture02.png)
 
 
 ## 2.0 Preparação do Ambiente (infraestrutura)
