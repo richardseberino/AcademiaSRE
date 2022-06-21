@@ -211,6 +211,7 @@ Após autenticado, você verá uma tela como a da imagem abaixo, clique no ícon
 Recupere o Token de acesso ao Prometheus (atraves do Thanos)
 ```
 oc sa get-token -n tef tef
+``` 
 
 Na tela que abrir clique no botão "Add data source", escolha a opção "Prometheus". Na tela que abrir informe a URL do Prometheus: "https://thanos-querier.openshift-monitoring.svc:9091". 
 Desligue a verificação de SSL (Skip TLS verify). Adicione um Header HTTP com o ID "Authorization" e valor "Bearer "  + o token que recuperamos na etapa anterior. 
