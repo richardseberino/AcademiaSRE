@@ -55,7 +55,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">10000</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">5</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -80,10 +80,10 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 	&quot;agencia_origem&quot;: 10,&#xd;
-	&quot;conta_origem&quot;: 11,&#xd;
+	&quot;conta_origem&quot;: 10,&#xd;
 	&quot;dv_origem&quot;: 0,&#xd;
 	&quot;agencia_destino&quot;: 10,&#xd;
-	&quot;conta_destino&quot;: 12,&#xd;
+	&quot;conta_destino&quot;: 11,&#xd;
 	&quot;dv_destino&quot;: 0,&#xd;
 	&quot;valor&quot;: 5.00,&#xd;
 	&quot;senha&quot;: &quot;123456&quot;,&#xd;
@@ -152,6 +152,10 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Pausa entre as transacoes" enabled="true">
+          <stringProp name="ConstantTimer.delay">300</stringProp>
+        </ConstantTimer>
+        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Devolve Dinheiro Simulacao" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -160,10 +164,10 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 	&quot;agencia_origem&quot;: 10,&#xd;
-	&quot;conta_origem&quot;: 12,&#xd;
+	&quot;conta_origem&quot;: 11,&#xd;
 	&quot;dv_origem&quot;: 0,&#xd;
 	&quot;agencia_destino&quot;: 10,&#xd;
-	&quot;conta_destino&quot;: 11,&#xd;
+	&quot;conta_destino&quot;: 10,&#xd;
 	&quot;dv_destino&quot;: 0,&#xd;
 	&quot;valor&quot;: 5.00,&#xd;
 	&quot;senha&quot;: &quot;123456&quot;,&#xd;
