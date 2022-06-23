@@ -150,14 +150,14 @@ public class Gm4cSenhaService {
 			LOG.info(MessagesEnum.GM4C_SEN0003I.getCodAndDescription());
 		}
 
-		try
+		/*try
 		{
-			Thread.sleep(500);
+			Thread.sleep(150);
 		}
 		catch (Exception e)
 		{
 			LOG.error("Falha ao simular problema de latencia! " + e.getMessage() );
-		}
+		}*/
 		span.log("Preparando a mensagem Kafka de retorno do serviço. ");
 		//prepara o registro do avro sobre o retorno da senha
 		Senha senhaResp = Senha.newBuilder()

@@ -153,7 +153,7 @@ public class Gm4cLimiteService {
 			span.log("Erro: " + e.getMessage());
 			span.setTag("error", true);
 			aprovado = false;
-			LOG.error(MessagesEnum.GM4C_LIM0001E.getCodAndDescription(), e);
+			LOG.error(MessagesEnum.GM4C_LIM0001E.getCodAndDescription(), e.getMessage());
 		}
 		LOG.info(MessagesEnum.GM4C_LIM0006I.getCodAndDescription());
 		span.log("Preparando a resposta AVRO do limite");

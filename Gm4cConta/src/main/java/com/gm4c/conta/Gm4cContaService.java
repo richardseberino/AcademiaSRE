@@ -138,7 +138,7 @@ public class Gm4cContaService {
 		catch (Exception e)
 		{
 			span.log("Conta Destino nao encontrada!");
-			LOG.error(MessagesEnum.GM4C_CTA0002E.getCodAndDescription());
+			LOG.error(MessagesEnum.GM4C_CTA0002E.getCodAndDescription(), e.getMessage());
 			span.setTag("error", true);
 			aprovadoDestino = false;
 		}
