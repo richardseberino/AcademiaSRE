@@ -1,0 +1,98 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data: 
+  config.yaml: |
+    enableUserWorkload: true
+    grafana:
+      enabled: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: tef-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    targetPort: 8080
+    scheme: http
+    path: /actuator/prometheus
+  selector: 
+    matchLabels:
+      app: tef
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: limite-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    port: http
+    scheme: http
+    path: /actuator/prometheus
+  selector: 
+    matchLabels:
+      app: limite
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: senha-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    port: http
+    scheme: http
+    path: /actuator/prometheus
+  selector: 
+    matchLabels:
+      app: senha
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: conta-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    port: http
+    scheme: http
+    path: /actuator/prometheus
+  selector: 
+    matchLabels:
+      app: conta     
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: kafka-lag-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    port: prometheus
+    scheme: http
+  selector: 
+    matchLabels:
+      name: kafka-lag-exporter
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: kafka-scrap
+  namespace: tef
+spec: 
+  podMetricsEndpoints:
+  - interval: 15s
+    port: prometheus
+    scheme: http
+  selector: 
+    matchLabels:
+      name: kafka-exporter

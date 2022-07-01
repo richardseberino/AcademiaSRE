@@ -2,6 +2,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "grafana"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -18,13 +19,5 @@ spec:
             privileged: true
           ports:
             - containerPort: 3000 
-              name: "porta1"
-          volumeMounts: 
-          - mountPath: /tmp/grafana/grafana.yml
-            name: grafana-setup
-      volumes:
-      - name: grafana-setup
-        hostPath:
-          path: /root/gm4c/Gm4cArtefatos/Grafana/grafana_dashboard_20200416.json
-          type: File              
+              name: "porta1"         
   replicas: 1 

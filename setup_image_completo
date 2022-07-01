@@ -2,7 +2,7 @@
 
 echo " --> Copiando a aplicacao para o diretorio correto"
 
-cd /tmp/src/Gm4cSenha
+cd Gm4cSenha
 cd ../Gm4cTrace
 mvn clean install -DskipTests
 cd ../Gm4cLog4J2
@@ -32,5 +32,6 @@ cd ../Gm4cConta
 mvn clean install -DskipTests
 cd ../Gm4cTEF
 mvn clean install -DskipTests
+cd ..
 
 

@@ -2,6 +2,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "gm4c-tef"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -16,7 +17,7 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cTEF-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:latest"
+          image: "seberino/gm4c:2.0"
           ports:
             - containerPort: 9000
               name: "porta1"
@@ -25,35 +26,7 @@ spec:
           - name: app-yml
             mountPath: /tmp/configmap/application.yml  
             subPath: application.yml        
-          - name: shared-logs
-            mountPath: /tmp/logs/
-        - name: logstash
-          image: maanadev/logstash:6.5.3-custom
-          volumeMounts:
-          - name: shared-logs
-            mountPath: /usr/share/logstash/mylogs/
-          - name: logstash-yml
-            mountPath: /usr/share/logstash/config/logstash.yml
-            subPath: logstash.yml
-          - name: logstash-conf
-            mountPath: /usr/share/logstash/pipeline/logstash.conf
-            subPath: logstash.conf
-          env:
-          - name: NODE_ID
-            value: "gm4c-tef"
-          - name: NODE_IP
-            valueFrom:
-              fieldRef:
-               fieldPath: status.podIP
       volumes:
-        - name: shared-logs
-          emptyDir: {}
-        - name: logstash-yml
-          configMap:
-            name: logstash-yml
-        - name: logstash-conf
-          configMap:
-            name: logstash-conf
         - name: app-yml
           configMap:
             name: tef-application
@@ -63,6 +36,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "gm4c-senha"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -77,7 +51,7 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cSenha-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:latest"
+          image: "seberino/gm4c:2.0"
           ports:
             - containerPort: 9003
               name: "porta1"
@@ -86,35 +60,7 @@ spec:
           - name: app-yml
             mountPath: /tmp/configmap/application.yml  
             subPath: application.yml        
-          - name: shared-logs
-            mountPath: /tmp/logs/
-        - name: logstash
-          image: maanadev/logstash:6.5.3-custom
-          volumeMounts:
-          - name: shared-logs
-            mountPath: /usr/share/logstash/mylogs/
-          - name: logstash-yml
-            mountPath: /usr/share/logstash/config/logstash.yml
-            subPath: logstash.yml
-          - name: logstash-conf
-            mountPath: /usr/share/logstash/pipeline/logstash.conf
-            subPath: logstash.conf
-          env:
-          - name: NODE_ID
-            value: "gm4c-senha"
-          - name: NODE_IP
-            valueFrom:
-              fieldRef:
-               fieldPath: status.podIP
       volumes:
-        - name: shared-logs
-          emptyDir: {}
-        - name: logstash-yml
-          configMap:
-            name: logstash-yml
-        - name: logstash-conf
-          configMap:
-            name: logstash-conf
         - name: app-yml
           configMap:
             name: senha-application
@@ -124,6 +70,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "gm4c-limite"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -138,7 +85,7 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cLimite-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:latest"
+          image: "seberino/gm4c:2.0"
           ports:
             - containerPort: 9001
               name: "porta1"
@@ -147,35 +94,7 @@ spec:
           - name: app-yml
             mountPath: /tmp/configmap/application.yml  
             subPath: application.yml        
-          - name: shared-logs
-            mountPath: /tmp/logs/
-        - name: logstash
-          image: maanadev/logstash:6.5.3-custom
-          volumeMounts:
-          - name: shared-logs
-            mountPath: /usr/share/logstash/mylogs/
-          - name: logstash-yml
-            mountPath: /usr/share/logstash/config/logstash.yml
-            subPath: logstash.yml
-          - name: logstash-conf
-            mountPath: /usr/share/logstash/pipeline/logstash.conf
-            subPath: logstash.conf
-          env:
-          - name: NODE_ID
-            value: "gm4c-limite"
-          - name: NODE_IP
-            valueFrom:
-              fieldRef:
-               fieldPath: status.podIP
       volumes:
-        - name: shared-logs
-          emptyDir: {}
-        - name: logstash-yml
-          configMap:
-            name: logstash-yml
-        - name: logstash-conf
-          configMap:
-            name: logstash-conf
         - name: app-yml
           configMap:
             name: limite-application
@@ -185,6 +104,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "gm4c-conta"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -199,7 +119,7 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cConta-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:latest"
+          image: "seberino/gm4c:2.0"
           ports:
             - containerPort: 9002
               name: "porta1"
@@ -208,35 +128,7 @@ spec:
           - name: app-yml
             mountPath: /tmp/configmap/application.yml  
             subPath: application.yml        
-          - name: shared-logs
-            mountPath: /tmp/logs/
-        - name: logstash
-          image: maanadev/logstash:6.5.3-custom
-          volumeMounts:
-          - name: shared-logs
-            mountPath: /usr/share/logstash/mylogs/
-          - name: logstash-yml
-            mountPath: /usr/share/logstash/config/logstash.yml
-            subPath: logstash.yml
-          - name: logstash-conf
-            mountPath: /usr/share/logstash/pipeline/logstash.conf
-            subPath: logstash.conf
-          env:
-          - name: NODE_ID
-            value: "gm4c-conta"
-          - name: NODE_IP
-            valueFrom:
-              fieldRef:
-               fieldPath: status.podIP
       volumes:
-        - name: shared-logs
-          emptyDir: {}
-        - name: logstash-yml
-          configMap:
-            name: logstash-yml
-        - name: logstash-conf
-          configMap:
-            name: logstash-conf
         - name: app-yml
           configMap:
             name: conta-application
@@ -246,6 +138,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "gm4c-springadmin"
+  namespace: acad
 spec:
   selector:
     matchLabels: 
@@ -260,7 +153,7 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cSpringAdmin-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:latest"
+          image: "seberino/gm4c:2.0"
           ports:
             - containerPort: 9004
               name: "porta1"
@@ -271,14 +164,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tef-svc
+  namespace: acad
   labels:
     name: tef-svc
 spec:
   ports:
-  - port: 9000
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9000
+    targetPort: 8080
   selector:
     name: gm4c-tef
 ---
@@ -286,14 +180,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: spring-admin-svc
+  namespace: acad
   labels:
     name: spring-admin-svc
 spec:
   ports:
-  - port: 9004
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9004
+    targetPort: 8080
   selector:
     name: gm4c-springadmin
 ---
@@ -301,14 +196,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: limite-svc
+  namespace: acad
   labels:
     name: limite-svc
 spec:
   ports:
-  - port: 9001
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9001
+    targetPort: 8080
   selector:
     name: gm4c-limite    
 ---
@@ -316,14 +212,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: senha-svc
+  namespace: acad
   labels:
     name: senha-svc
 spec:
   ports:
-  - port: 9003
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9003
+    targetPort: 8080
   selector:
     name: gm4c-senha
 ---
@@ -331,14 +228,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: conta-svc
+  namespace: acad
   labels:
     name: conta-svc
 spec:
   ports:
-  - port: 9002
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9002
+    targetPort: 8080
   selector:
     name: gm4c-conta
 ---
@@ -346,15 +244,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tef-ext-svc
+  namespace: acad
   labels:
     name: tef-ext-svc
 spec:
   type: NodePort
   ports:
-  - port: 9000
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9000
+    targetPort: 8080
     nodePort: 31009
   selector:
     name: gm4c-tef
@@ -363,15 +262,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: limite-ext-svc
+  namespace: acad
   labels:
     name: limite-ext-svc
 spec:
   type: NodePort
   ports:
-  - port: 9001
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9001
+    targetPort: 8080
     nodePort: 31001
   selector:
     name: gm4c-limite    
@@ -380,15 +280,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: senha-ext-svc
+  namespace: acad
   labels:
     name: senha-ext-svc
 spec:
   type: NodePort
   ports:
-  - port: 9003
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9003
+    targetPort: 8080
     nodePort: 31003
   selector:
     name: gm4c-senha
@@ -397,15 +298,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: conta-ext-svc
+  namespace: acad
   labels:
     name: conta-ext-svc
 spec:
   type: NodePort
   ports:
-  - port: 9002
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9002
+    targetPort: 8080
     nodePort: 31002
   selector:
     name: gm4c-conta
@@ -414,15 +316,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: springadmin-ext-svc
+  namespace: acad
   labels:
     name: springadmin-svc
 spec:
   type: NodePort
   ports:
-  - port: 9004
+  - port: 8080
     name: porta1
     protocol: TCP
-    targetPort: 9004
+    targetPort: 8080
     nodePort: 31004
   selector:
     name: gm4c-springadmin

@@ -2,6 +2,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "kafka"
+  namespace: acad
 spec:
   selector:
     matchLabels:
@@ -16,7 +17,7 @@ spec:
           env:
             - name: "ADV_HOST"
               value: "kafka-svc"
-          image: "seberino/kafka:jmx"
+          image: "landoop/fast-data-dev:latest"
           securityContext:
             privileged: true
           ports:
@@ -44,20 +45,13 @@ spec:
               name: "jmx"
             - containerPort: 9092
               name: "kafka-client"
-          volumeMounts:
-          - mountPath: /tmp/scripts
-            name: scripts
-      volumes:
-      - name: scripts
-        hostPath:
-          path: /root/gm4c/Gm4cArtefatos/kubernetes/scripts
-          type: Directory
   replicas: 1
 ---
 kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "kafka-lag-exporter"
+  namespace: acad
 spec:
   selector:
     matchLabels:
@@ -90,6 +84,7 @@ kind: "Deployment"
 apiVersion: "apps/v1"
 metadata:
   name: "kafka-exporter"
+  namespace: acad
 spec:
   selector:
     matchLabels:
