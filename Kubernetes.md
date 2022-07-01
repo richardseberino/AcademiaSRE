@@ -1,11 +1,11 @@
-#conectar no cluster
+## conectar no cluster
 aws eks --region us-east-2 update-kubeconfig --name academia
 export KUBECONFIG=/Users/seberino/.kube/config
 
-#Criando namespace
+## Criando namespace
 kubectl create namespace acad
 
-#Importando configmap
+## Importando configmap
 kubectl create configmap kafka-export-conf --from-file=Gm4cArtefatos/kubernetes/configs/kafkaExporter/application.conf -n acad
 
 ## Criacao Kafka
