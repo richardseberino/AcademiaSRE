@@ -30,7 +30,7 @@ kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --zookeeper localho
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/cassandra.yaml
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/cassandra-svc.yaml
 export cassandra_pod=`kubectl get pod -n acad | grep cassandra | grep -v NAME | awk '{ print $1 } '`
-
+sleep 90
 kubectl cp Gm4cArtefatos/openshift/cassandra.sql $cassandra_pod:/tmp -n acad
 kubectl exec -ti $cassandra_pod -n acad -- cqlsh -u cassandra -p cassandra -f /tmp/cassandra.sql
 ```
