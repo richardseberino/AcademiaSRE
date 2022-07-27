@@ -90,3 +90,8 @@ docker push seberino/gm4c:2.0
 ```
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/gm4c.yaml
 ```
+
+## Instala o Kuberneteds Dashboard
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+``` 
