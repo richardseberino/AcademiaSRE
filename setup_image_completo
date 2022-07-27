@@ -32,6 +32,7 @@ cd ../Gm4cConta
 mvn clean install -DskipTests
 cd ../Gm4cTEF
 mvn clean install -DskipTests
+cd ../Gm4cSpringAdmin
+mvn clean install -DskipTests
 cd ..
-
 
