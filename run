@@ -5,5 +5,5 @@ fi
 
 mkdir /tmp/logs
 
-exec java -Djava.security.egd=file:/dev/./urandom -jar $JAR_FILE > /tmp/logs/app.log
+exec java -Djava.security.egd=file:/dev/./urandom -jar $JAR_FILE
 

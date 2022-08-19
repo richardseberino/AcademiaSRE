@@ -1,20 +1,182 @@
-apiVersion: networking.k8s.io/v1
 kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: jaeger
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  tls:
+    - hosts:
+        - >-
+          jaeger.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      secretName: academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000
+  rules:
+    - host: >-
+        jaeger.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: jaeger-svc
+                port:
+                  number: 16686
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: promehteus
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  tls:
+    - hosts:
+        - >-
+          prometheus.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      secretName: academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000
+  rules:
+    - host: >-
+        pronmetheus.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: prometheus-svc
+                port:
+                  number: 9090
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
 metadata:
   name: kibana
   namespace: acad
-  annotations:    
-    kubernetes.io/ingress.class: nginx
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "https"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"  
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
-  - http:
-      paths:
-      - backend:
-          service:
-            name: kibana-kb-http
-            port:
-              number: 5601
-        path: /
-        pathType: ImplementationSpecific
+    - host: >-
+        kibana.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: grafana
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  tls:
+    - hosts:
+        - >-
+          grafana.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      secretName: academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000
+  rules:
+    - host: >-
+        grafana.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: grafana-svc
+                port:
+                  number: 3000
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: spring-admin
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  tls:
+    - hosts:
+        - >-
+          spring-admin.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      secretName: academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000
+  rules:
+    - host: >-
+        spring-admin.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: spring-admin-svc
+                port:
+                  number: 8080
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: tef
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  tls:
+    - hosts:
+        - >-
+          tef.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      secretName: academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000
+  rules:
+    - host: >-
+        tef.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tef
+                port:
+                  number: 8080                  
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: es
+  namespace: acad
+  annotations:
+    kubernetes.io/ingress.class: public-iks-k8s-nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "https"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+    - host: >-
+        es.academia-sre-itau-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: es-es-http
+                port:
+                  number: 9200                  

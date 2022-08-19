@@ -17,9 +17,9 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cTEF-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:2.0"
+          image: "seberino/gm4c:2.2"
           ports:
-            - containerPort: 9000
+            - containerPort: 8080
               name: "porta1"
               protocol: TCP
           volumeMounts:
@@ -51,9 +51,9 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cSenha-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:2.0"
+          image: "seberino/gm4c:2.2"
           ports:
-            - containerPort: 9003
+            - containerPort: 8080
               name: "porta1"
               protocol: TCP
           volumeMounts:
@@ -85,9 +85,9 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cLimite-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:2.0"
+          image: "seberino/gm4c:2.2"
           ports:
-            - containerPort: 9001
+            - containerPort: 8080
               name: "porta1"
               protocol: TCP
           volumeMounts:
@@ -119,9 +119,9 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cConta-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:2.0"
+          image: "seberino/gm4c:2.2"
           ports:
-            - containerPort: 9002
+            - containerPort: 8080
               name: "porta1"
               protocol: TCP
           volumeMounts:
@@ -153,9 +153,9 @@ spec:
           env:
             - name: "JAR_FILE"
               value: "/tmp/Gm4cSpringAdmin-0.0.1-SNAPSHOT.jar"
-          image: "seberino/gm4c:2.0"
+          image: "seberino/gm4c:2.2"
           ports:
-            - containerPort: 9004
+            - containerPort: 8080
               name: "porta1"
               protocol: TCP
   replicas: 1 
@@ -163,10 +163,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tef-svc
+  name: tef
   namespace: acad
   labels:
-    name: tef-svc
+    name: tef
 spec:
   ports:
   - port: 8080
@@ -195,10 +195,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: limite-svc
+  name: limite
   namespace: acad
   labels:
-    name: limite-svc
+    name: limite
 spec:
   ports:
   - port: 8080
@@ -211,10 +211,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: senha-svc
+  name: senha
   namespace: acad
   labels:
-    name: senha-svc
+    name: senha
 spec:
   ports:
   - port: 8080
@@ -227,10 +227,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: conta-svc
+  name: conta
   namespace: acad
   labels:
-    name: conta-svc
+    name: conta
 spec:
   ports:
   - port: 8080
@@ -257,76 +257,4 @@ spec:
     nodePort: 31009
   selector:
     name: gm4c-tef
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: limite-ext-svc
-  namespace: acad
-  labels:
-    name: limite-ext-svc
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    name: porta1
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 31001
-  selector:
-    name: gm4c-limite    
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: senha-ext-svc
-  namespace: acad
-  labels:
-    name: senha-ext-svc
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    name: porta1
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 31003
-  selector:
-    name: gm4c-senha
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: conta-ext-svc
-  namespace: acad
-  labels:
-    name: conta-ext-svc
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    name: porta1
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 31002
-  selector:
-    name: gm4c-conta
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: springadmin-ext-svc
-  namespace: acad
-  labels:
-    name: springadmin-svc
-spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    name: porta1
-    protocol: TCP
-    targetPort: 8080
-    nodePort: 31004
-  selector:
-    name: gm4c-springadmin
----
+

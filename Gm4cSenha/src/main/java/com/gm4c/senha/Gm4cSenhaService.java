@@ -137,7 +137,9 @@ public class Gm4cSenhaService {
 			span.setTag("error", true);
 			aprovado = false;
 		}
-		
+
+		//Implementando a criptografia na senha
+		//if (senha!=null && senha.getSenha().equals(descriptografar(transferencia.getSenha(),1324)))
 		if (senha!=null && senha.getSenha().equals(transferencia.getSenha()))
 		{
 			span.log("Senha correta");
@@ -150,14 +152,7 @@ public class Gm4cSenhaService {
 			LOG.info(MessagesEnum.GM4C_SEN0003I.getCodAndDescription());
 		}
 
-		/*try
-		{
-			Thread.sleep(150);
-		}
-		catch (Exception e)
-		{
-			LOG.error("Falha ao simular problema de latencia! " + e.getMessage() );
-		}*/
+
 		span.log("Preparando a mensagem Kafka de retorno do serviço. ");
 		//prepara o registro do avro sobre o retorno da senha
 		Senha senhaResp = Senha.newBuilder()
@@ -188,4 +183,20 @@ public class Gm4cSenhaService {
 		LOG.clearContext();
 		
 	}
+
+	private String criptografar(String msg, int chave) {
+		String msgCript = "";
+		for(int i = 0; i < msg.length(); i++) {
+			msgCript += (char) (msg.charAt(i) + chave);
+		}
+		return msgCript;
+	}
+	private String descriptografar(String msgCript, int chave) {
+		String msg = "";
+		for(int i = 0; i < msgCript.length(); i++) {
+			msg += (char) (msgCript.charAt(i) - chave);
+		}
+		return msg;
+	}
+
 }

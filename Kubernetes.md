@@ -60,6 +60,17 @@ kubectl create -f https://download.elastic.co/downloads/eck/2.3.0/crds.yaml
 kubectl apply -f https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/log-pipeline.yaml
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/filebeat-kubernetes.yaml
+#curl -L -O https://raw.githubusercontent.com/elastic/beats/8.3/deploy/kubernetes/filebeat-kubernetes.yaml
+
+
+cd Gm4cArtefatos/kubernetes/elk/filebeat/
+helm install filebeat . 
+cd ../logstash
+helm install logstash . 
+cd ../elastic
+helm install elasticsearch .
+cd ../kibana
+helm install kibana . 
 ```
 ### Recupera Login do Kibana
 ```
@@ -82,8 +93,8 @@ source setup_image_completo
 ```
 ### substitua no comando abaixo seu id docker-Hub e o nome da sua imagem 
 ```
-docker build . -t seberino/gm4c:2.0
-docker push seberino/gm4c:2.0
+docker build . -t seberino/gm4c:2.1
+docker push seberino/gm4c:2.1
 ```
 ### edite o arquivo Gm4cArtefatos/kubernetes/gm4c.yaml e substitua o nome do seu id Docker Hub e da imagem definida no passo anterior
 ### aplique o arquivo abaixo

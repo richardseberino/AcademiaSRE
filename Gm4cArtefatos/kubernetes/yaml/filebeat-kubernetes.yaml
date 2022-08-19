@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: filebeat-config
-  namespace: kube-system
+  namespace: acad
   labels:
     k8s-app: filebeat
 data:
@@ -34,19 +34,26 @@ data:
       - add_cloud_metadata:
       - add_host_metadata:
 
-    cloud.id: ${ELASTIC_CLOUD_ID}
-    cloud.auth: ${ELASTIC_CLOUD_AUTH}
+    # cloud.id: ${ELASTIC_CLOUD_ID}
+    # cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ["https://es-es-http:9200"]
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
+      ssl:
+        enabled: true
+
+    setup.kibana:
+      host: "https://kibana-kb-http:5601"
+      username: ${ELASTICSEARCH_USERNAME}
+      password: ${ELASTICSEARCH_PASSWORD}      
 ---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: filebeat
-  namespace: kube-system
+  namespace: acad
   labels:
     k8s-app: filebeat
 spec:
@@ -64,20 +71,20 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: filebeat
-        image: docker.elastic.co/beats/filebeat:8.3.1
+        image: docker.elastic.co/beats/filebeat:8.3.3
         args: [
           "-c", "/etc/filebeat.yml",
           "-e",
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: es-es-http.acad
+          value: es-es-http
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
-          value: pDyMx0Z4CY09cu6s07w6nZ50
+          value: 928b7B0V1P4x7yhkbMCkra94
         - name: ELASTIC_CLOUD_ID
           value:
         - name: ELASTIC_CLOUD_AUTH
@@ -134,7 +141,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: filebeat
-  namespace: kube-system
+  namespace: acad
 roleRef:
   kind: ClusterRole
   name: filebeat
@@ -144,11 +151,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: filebeat
-  namespace: kube-system
+  namespace: acad
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: kube-system
+    namespace: acad
 roleRef:
   kind: Role
   name: filebeat
@@ -158,11 +165,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: filebeat-kubeadm-config
-  namespace: kube-system
+  namespace: acad
 subjects:
   - kind: ServiceAccount
     name: filebeat
-    namespace: kube-system
+    namespace: acad
 roleRef:
   kind: Role
   name: filebeat-kubeadm-config
@@ -198,7 +205,7 @@ kind: Role
 metadata:
   name: filebeat
   # should be the namespace where filebeat is running
-  namespace: kube-system
+  namespace: acad
   labels:
     k8s-app: filebeat
 rules:
@@ -212,7 +219,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: filebeat-kubeadm-config
-  namespace: kube-system
+  namespace: acad
   labels:
     k8s-app: filebeat
 rules:
@@ -227,7 +234,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: filebeat
-  namespace: kube-system
+  namespace: acad
   labels:
     k8s-app: filebeat
 ---
