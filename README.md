@@ -112,7 +112,7 @@ oc create -f Gm4cArtefatos/openshift/redis.yaml -n tef
 ### 3.1 Preparação (Compilação das Dependencias)
 ```
 export MVN_URL=http://nexus-tef.mycluster-sao01-b3-321291-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/
-cd Gm4Logging
+cd Gm4cLogging
 mvn install
 mvn package
 mvn deploy:deploy-file -DgroupId=com.gm4c -DartifactId=Gm4cLogging -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -Dfile=target/Gm4cLogging-0.0.1-SNAPSHOT.jar -DgeneratePom=true -DrepositoryId=nexus -Durl=$MVN_URL
