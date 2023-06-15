@@ -29,10 +29,10 @@ oc get pods -n tef
 
 Depois do pod do Kafka esta no ar rode os comandos abaixo para criar os tópicos
 ```
-oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 tef
-oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 senha
-oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 conta
-oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 limite
+oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 --topic tef
+oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 --topic senha
+oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 --topic conta
+oc exec -ti kafka-0 -n tef -- kafka-topics --create --bootstrap-server localhost:9092  --replication-factor 1 --partitions 3 --topic  limite
 ```
 
 Execute os comandos abaixo para subir o Exporter do Kafa para o prometheus
