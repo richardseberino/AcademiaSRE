@@ -111,7 +111,7 @@ oc create -f Gm4cArtefatos/openshift/redis.yaml -n tef
 ## 3.0 Instalar as aplicações
 ### 3.1 Preparação (Compilação das Dependencias)
 ```
-export MVN_URL=http://nexus-tef.cpwatson-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/
+export MVN_URL=http://nexus-tef.mycluster-sao01-b3-321291-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/
 cd Gm4Logging
 mvn install
 mvn package
