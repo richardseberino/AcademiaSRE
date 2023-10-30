@@ -25,6 +25,10 @@
 			<id>confluent</id>
 			<url>https://packages.confluent.io/maven/</url>
 		</repository>		
+		<repository>
+			<id>nexus</id>
+			<url>https://nexus-https-tef.mycluster-dal10-b3-532715-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-public/</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
