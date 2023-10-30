@@ -19,12 +19,16 @@
         <avro.version>1.8.2</avro.version>
         <confluent.version>4.0.0</confluent.version>
 	</properties>
-    <repositories>
-        <repository>
-            <id>confluent</id>
-            <url>https://packages.confluent.io/maven/</url>
-        </repository>		
-    </repositories>
+	<repositories>
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
+		</repository>
+		<repository>
+			<id>nexus</id>
+      		<url>http://nexus:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 		    <groupId>io.prometheus.jmx</groupId>
