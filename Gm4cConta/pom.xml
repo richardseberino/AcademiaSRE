@@ -13,7 +13,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Conta</name>
 	<description>Componente que valida conta</description>
-
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>maven-releases</name>
+			<url>http://nexus-tef.mycluster-dal10-b3-532715-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>maven-snapshots</name>
+			<url>http://nexus-tef.mycluster-dal10-b3-532715-510ad6ebead8e7457a6e62904edfa48f-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<properties>
 		<java.version>1.8</java.version>
         <avro.version>1.8.2</avro.version>
