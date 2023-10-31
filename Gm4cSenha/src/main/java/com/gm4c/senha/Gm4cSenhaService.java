@@ -107,7 +107,7 @@ public class Gm4cSenhaService {
 		//verifica se for efetivacao, não faz nada
 		if (transferencia.getEvento().equalsIgnoreCase("efetivacao"))
 		{
-			LOG.info(MessagesEnum.GM4C_SEN0001I.getCodAndDescription());
+			LOG.debug(MessagesEnum.GM4C_SEN0001I.getCodAndDescription());
 			span.log("Evento de efetivação, senha nao precisa ser validada, ignorando mensagem");
 			span.finish();
 			return;
@@ -140,6 +140,18 @@ public class Gm4cSenhaService {
 
 		//Implementando a criptografia na senha
 		//if (senha!=null && senha.getSenha().equals(descriptografar(transferencia.getSenha(),1324)))
+		if (senha.getAgencia()==20 && senha.getConta()==21)
+		{
+			try
+			{
+				Thread.sleep(500);
+			}
+			catch (Exception e)
+			{
+				
+			}
+		}
+
 		if (senha!=null && senha.getSenha().equals(transferencia.getSenha()))
 		{
 			span.log("Senha correta");
