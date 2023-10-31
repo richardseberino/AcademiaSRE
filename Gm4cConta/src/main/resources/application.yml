@@ -6,7 +6,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://spring-admin-svc:8080
+        url: http://spring-admin-svc:9004
         instance:
           name: Gm4cConta
           prefer-ip: true
