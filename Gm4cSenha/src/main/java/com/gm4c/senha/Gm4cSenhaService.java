@@ -144,11 +144,13 @@ public class Gm4cSenhaService {
 		{
 			try
 			{
+				Log.warn(MessagesEnum.GM4C_SEN0001W.getCodAndDescription());
+				span.warn("Senha complexa, criptografia levando mais tempo que o normal");
 				Thread.sleep(500);
 			}
 			catch (Exception e)
 			{
-				
+
 			}
 		}
 

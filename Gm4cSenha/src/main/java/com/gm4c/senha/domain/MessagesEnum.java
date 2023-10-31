@@ -15,7 +15,10 @@ public enum MessagesEnum {
     //ERROR
     GM4C_SEN0001E("GM4C_SEN0001E","Senha nao cadastrada para essa Conta ou conta nao existe"),
     
-    GM4C_SEN000XX("GM4C_SEN000XX","Xxxx Xxxx Xxxx");
+    GM4C_SEN000XX("GM4C_SEN000XX","Xxxx Xxxx Xxxx"),
+
+    //Warning
+    GM4C_SEN0001W("GM4C_SEN00001W", "Senha complexa, criptografia levando mais tempo do que o normal!");
 
     private String codMessage; 
 
