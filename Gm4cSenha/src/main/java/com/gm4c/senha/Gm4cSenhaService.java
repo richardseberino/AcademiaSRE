@@ -140,12 +140,13 @@ public class Gm4cSenhaService {
 
 		//Implementando a criptografia na senha
 		//if (senha!=null && senha.getSenha().equals(descriptografar(transferencia.getSenha(),1324)))
+		Log.debug("Vai iniciar a descriptografia da senha!");
 		if (senha.getAgencia()==20 && senha.getConta()==21)
 		{
 			try
 			{
 				Log.warn(MessagesEnum.GM4C_SEN0001W.getCodAndDescription());
-				span.warn("Senha complexa, criptografia levando mais tempo que o normal");
+				//span.warn("Senha complexa, criptografia levando mais tempo que o normal");
 				Thread.sleep(500);
 			}
 			catch (Exception e)
@@ -153,6 +154,7 @@ public class Gm4cSenhaService {
 
 			}
 		}
+		Log.debug("Senha Descriptografada com sucesso!");
 
 		if (senha!=null && senha.getSenha().equals(transferencia.getSenha()))
 		{
