@@ -202,7 +202,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			while (!verificaEtapa(transactionId, "efetivacao")) 
 			{
 				agora = new Date();
-				if (agora.getTime()-inicio.getTime()>10000)
+				if (agora.getTime()-inicio.getTime()>3000)
 				{
 					  	LOG.error(MessagesEnum.GM4C_TEF0007E.getCodAndDescription());	
 						throw new Exception("[-3] timeout!");
