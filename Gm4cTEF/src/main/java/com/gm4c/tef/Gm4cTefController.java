@@ -544,7 +544,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			if (ev.getRc_credito().startsWith("[2]") || ev.getRc_debito().startsWith("[2]") || ev.getRc_limite().startsWith("[2]") || ev.getRc_senha().startsWith("[2]"))
 			{
 				//TODO - Avaliar log GM4C_TEF0016I pois entra no Loop 
-				LOG.info(MessagesEnum.GM4C_TEF0016I.getCodAndDescription());
+				LOG.debug(MessagesEnum.GM4C_TEF0016I.getCodAndDescription());
 				return false;
 			}
 		} 
@@ -552,7 +552,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		{
 			if (ev.getRc_credito().startsWith("[2]") || ev.getRc_debito().startsWith("[2]") || ev.getRc_limite().startsWith("[2]"))
 			{
-				LOG.info(MessagesEnum.GM4C_TEF0017I.getCodAndDescription());
+				LOG.debug(MessagesEnum.GM4C_TEF0017I.getCodAndDescription());
 				return false;
 			}
 			
