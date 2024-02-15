@@ -83,7 +83,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		String correlationId = UUID.randomUUID().toString();
 		String transactionId = efetivacao.getIdTransacao();
 		boolean syntheticTransaction=false;
-		
+		boolean error=false;
 		
 		Map<String, Object> returnValue = new HashMap<>();
 
@@ -202,7 +202,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			while (!verificaEtapa(transactionId, "efetivacao")) 
 			{
 				agora = new Date();
-				if (agora.getTime()-inicio.getTime()>3000)
+				if (agora.getTime()-inicio.getTime()>2000)
 				{
 					  	LOG.error(MessagesEnum.GM4C_TEF0007E.getCodAndDescription());	
 						throw new Exception("[-3] timeout!");
@@ -247,7 +247,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			span.setTag("error", true);
 			span.log("Erro na efetivação: " + e.getMessage());
 			LOG.error(MessagesEnum.GM4C_TEF0012E.getCodAndDescription(), e.getMessage());
-			
+			error=true;
 		}
 		
 		span.log("Removendo os dados da efetivacao do Rediz");
@@ -271,7 +271,10 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		span.finish();
 		LOG.info(resultado, MessagesEnum.GM4C_TEF0019I.getCodAndDescription());
 		LOG.debug("Fim da efetivação");
-		
+		if (error)
+		{
+			return ResponseEntity.status(500).build();
+		}
 		return ResponseEntity.ok(resultado);
 
 	}
@@ -411,7 +414,7 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 			while (!verificaEtapa(transactionId, "simulacao")) 
 			{
 				agora = new Date();
-				if (agora.getTime()-inicio.getTime()>10000)
+				if (agora.getTime()-inicio.getTime()>2000)
 				{
 					Optional<TefDto> list = repTef.findById(transactionId);
 					
