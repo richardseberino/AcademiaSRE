@@ -514,6 +514,10 @@ public class Gm4cTefController extends com.gm4c.trace.ProgragacaoContextoTrace {
 		{
 			return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
 		}
+		else if (sim.getRc_simulacao().startsWith("[-3]"))
+		{
+			return new ResponseEntity<>(resultado, HttpStatus.REQUEST_TIMEOUT);
+		}
 		return ResponseEntity.ok(resultado);
 	
 
