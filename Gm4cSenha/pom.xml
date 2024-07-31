@@ -22,9 +22,13 @@
 	</properties>
 	<repositories>
 		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
+		</repository>	
+		<repository>
 			<id>nexus</id>
 			<url>https://nexus2-tef.oca-logging-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-public/</url>
-		</repository>
+		</repository>	
 	</repositories>
 	<dependencies>
 		<dependency>
