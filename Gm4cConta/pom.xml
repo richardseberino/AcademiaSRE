@@ -17,12 +17,12 @@
 		<repository>
 			<id>nexus</id>
 			<name>maven-releases</name>
-			<url>http://nexus-tef.oca-logging-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-releases/</url>
+			<url>http://nexus-tef.app-cluster-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus</id>
 			<name>maven-snapshots</name>
-			<url>http://nexus-tef.oca-logging-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/</url>
+			<url>http://nexus-tef.app-cluster-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
@@ -37,7 +37,7 @@
 		</repository>
 		<repository>
 			<id>nexus</id>
-      		<url>https://nexus2-tef.oca-logging-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-public/</url>
+      		<url>https://nexus2-tef.app-cluster-dfbc2255337b6bc29518db04b50c00ca-0000.us-south.containers.appdomain.cloud/repository/maven-public/</url>
 		</repository>
 	</repositories>
 	<dependencies>
