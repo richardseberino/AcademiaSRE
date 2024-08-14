@@ -19,10 +19,10 @@ kubectl create -f Gm4cArtefatos/kubernetes/yaml/kafka.yaml
 kubectl create -f Gm4cArtefatos/kubernetes/yaml/kafka-svc.yaml
 sleep 120
 export kafka_pod=`kubectl get pod -n acad | grep kafka | grep -v NAME | grep -v exporter | awk '{ print $1 } '`
-kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic tef
-kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic senha
-kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic conta
-kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic limite
+kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 --topic tef
+kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 --topic senha
+kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 --topic conta
+kubectl exec -ti $kafka_pod -n acad -- kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 --topic limite
 ```
 
 ## Criacao Cassandra
